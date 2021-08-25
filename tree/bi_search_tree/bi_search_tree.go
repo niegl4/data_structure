@@ -38,33 +38,49 @@ func init() {
 
 	node4.parent = &node9
 	node5.parent = &node10
-	node6.parent = &node10
-	node6.lChild = &node1
-	node6.rChild = &node2
-	node7.parent = &node12
-	node7.rChild = &node3
+	{
+		node6.parent = &node10
+		node6.lChild = &node1
+		node6.rChild = &node2
+	}
+	{
+		node7.parent = &node12
+		node7.rChild = &node3
+	}
 	node8.parent = &node12
 
-	node9.parent = &node13
-	node9.rChild = &node4
-	node10.parent = &node13
-	node10.lChild = &node5
-	node10.rChild = &node6
+	{
+		node9.parent = &node13
+		node9.rChild = &node4
+	}
+	{
+		node10.parent = &node13
+		node10.lChild = &node5
+		node10.rChild = &node6
+	}
 	node11.parent = &node14
-	node12.parent = &node14
-	node12.lChild = &node7
-	node12.rChild = &node8
+	{
+		node12.parent = &node14
+		node12.lChild = &node7
+		node12.rChild = &node8
+	}
 
-	node13.parent = &root
-	node13.lChild = &node9
-	node13.rChild = &node10
-	node14.parent = &root
-	node14.lChild = &node11
-	node14.rChild = &node12
+	{
+		node13.parent = &root
+		node13.lChild = &node9
+		node13.rChild = &node10
+	}
+	{
+		node14.parent = &root
+		node14.lChild = &node11
+		node14.rChild = &node12
+	}
 
-	root.parent = nil
-	root.lChild = &node13
-	root.rChild = &node14
+	{
+		root.parent = nil
+		root.lChild = &node13
+		root.rChild = &node14
+	}
 }
 
 type BiSearchTree struct {
