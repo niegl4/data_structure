@@ -6,6 +6,12 @@ import (
 )
 
 var (
+	/*
+	       A
+	   B       C
+	 D   E   F   G
+	H I J K L M N O
+	 */
 	BiTreeLeaf1 = BiTree{Data: "H"}
 	BiTreeLeaf2 = BiTree{Data: "I"}
 	BiTreeLeaf3 = BiTree{Data: "J"}
