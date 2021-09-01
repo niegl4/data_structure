@@ -1,4 +1,4 @@
-package bi_search_tree
+package _2_bi_search_tree
 
 import (
 	"data_structure/tree/common"

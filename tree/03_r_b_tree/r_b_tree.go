@@ -1,4 +1,4 @@
-package __r_b_tree
+package _3_r_b_tree
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-package bi_tree
+package _1_bi_tree
 
 import (
 	"data_structure/tree/common"
