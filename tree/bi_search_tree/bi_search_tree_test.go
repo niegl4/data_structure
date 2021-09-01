@@ -89,7 +89,13 @@ func TestBiSearchTree_Change(t *testing.T) {
 		}
 		return
 	}
+	//status -1
+	testFunc(t, -1, 0)
+	//status 1
+	testFunc(t, 55, 80)
+	//status 2 不变更根节点
 	testFunc(t, 58, 100)
+	//status 2 变更根节点
 	testFunc(t, 33, 11)
 }
 

@@ -225,7 +225,10 @@ func (biS *BiSearchTree) Change(srcData, dstData int) *BiSearchTree {
 	} else if status == 0 {
 		root = BiSearchTree{Data: dstData}
 		return &root
+	} else if status == 1 {
+		return root.Insert(dstData)
 	} else {
+		//根节点变更
 		if newNode.parent == nil {
 			root = *newNode
 		}
