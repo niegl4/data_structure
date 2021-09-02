@@ -194,7 +194,13 @@ func (rbt *RBTree) insertBalanceFixup(insertnode *TreeNode) {
 			insertnode.color = "red"
 
 		} else {
-			//如果叔叔节点为空或叔叔节点为黑色，就按照如下图所示变化：
+			//1.插入节点的父节点 是 插入节点的祖父节点 的左孩子（说明要绕祖父节点右旋）
+			//	1）插入节点 是 插入节点的父节点 的左孩子
+			//	2）插入节点 是 插入节点的父节点 的右孩子（多一步 左旋。因为马上要右旋，新插入节点最好位于左子树。）
+			//2.插入节点的父节点 是 插入节点的祖父节点 的右孩子（说明要绕祖父节点左旋）
+			//	1）插入节点 是 插入节点的父节点 的左孩子（多一步 右旋。因为马上要左旋，新插入节点最好位于右子树。）
+			//	2）插入节点 是 插入节点的父节点 的右孩子
+			//《如果叔叔节点为空或叔叔节点为黑色，就按照如下图所示变化：
 			//     |                        |
 			//    1● <-right rotate        2●
 			//    / \       --------\      / \
@@ -204,7 +210,7 @@ func (rbt *RBTree) insertBalanceFixup(insertnode *TreeNode) {
 			//
 			//当然，这只是叔叔节点为黑时的一种情况，如果上图的节点4为2节点的右孩子，则
 			//可以先在2节点处向左旋转，这样就转换成了上图这种情况了。另外两种情况自己想
-			//想就明白了
+			//想就明白了》
 			if insertnode.parent == insertnode.parent.parent.lchild {
 				if insertnode == insertnode.parent.rchild {
 					insertnode = insertnode.parent
@@ -217,6 +223,13 @@ func (rbt *RBTree) insertBalanceFixup(insertnode *TreeNode) {
 				rbt.RightRotate(insertnode)
 
 			} else {
+				//     |                                  |
+				//    1● <-left rotate                  2●
+				//    / \       ------------------\      / \
+				//  3●  ○2     ------------------/   1○  ○4
+				//        \                           /
+				//        ○4 <-new node ptr        3●
+				//
 				if insertnode == insertnode.parent.lchild {
 					insertnode = insertnode.parent
 					rbt.RightRotate(insertnode)
