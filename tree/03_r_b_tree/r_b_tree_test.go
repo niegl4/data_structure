@@ -17,3 +17,18 @@ func TestRBTree_GetDeepth(t *testing.T) {
 	rbt.Add(1)
 	t.Log(rbt.GetDeepth())
 }
+
+func TestRBTree_Delete(t *testing.T) {
+	var (
+		rbtOp = func(data interface{}) {
+			t.Log(data)
+		}
+	)
+	var rbt RBTree
+	rbt.Add(2)
+	rbt.Add(1)
+	rbt.InOrderTravel(rbtOp)
+
+	rbt.Delete(float64(2))
+	rbt.InOrderTravel(rbtOp)
+}

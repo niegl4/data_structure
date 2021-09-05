@@ -1,6 +1,7 @@
 package _3_r_b_tree
 
 import (
+	"data_structure/tree/common"
 	"fmt"
 )
 
@@ -65,6 +66,24 @@ func (rbt *RBTree) Add(data float64) {
 
 	//插入节点后对红黑性质进行修复
 	rbt.insertBalanceFixup(rbt.create)
+}
+
+func (rbt *RBTree) DeleteByMe(data float64) {
+	node := rbt.Search(data)
+	if node == nil {
+		return
+	}
+	switch {
+	//todo:删除节点是叶子节点，且不是root，且是黑色。这种情况后续再说。
+	//case node.lchild == nil && node.rchild == nil:
+	//	if node.parent == nil {
+	//		rbt.root = nil
+	//		return
+	//	}
+	case node.lchild != nil && node.rchild == nil:
+	case node.lchild == nil && node.rchild != nil:
+	case node.lchild != nil && node.rchild != nil:
+	}
 }
 
 func (rbt *RBTree) Delete(data float64) {
@@ -347,13 +366,14 @@ func (rbt RBTree) IsEmpty() bool {
 	return false
 }
 
-func (rbt RBTree) InOrderTravel() {
+func (rbt RBTree) InOrderTravel(op common.Operate) {
 	var inOrderTravel func(node *TreeNode)
 
 	inOrderTravel = func(node *TreeNode) {
 		if node != nil {
 			inOrderTravel(node.lchild)
-			fmt.Printf("%g ", node.data)
+			op(fmt.Sprintf("%f, %s", node.data, node.color))
+			//fmt.Printf("%g ", node.data)
 			inOrderTravel(node.rchild)
 		}
 	}
@@ -361,6 +381,7 @@ func (rbt RBTree) InOrderTravel() {
 	inOrderTravel(rbt.root)
 }
 
+//寻找指定节点
 func (rbt RBTree) Search(data float64) *TreeNode {
 	//和Add操作类似，只要按照比当前节点小就往左孩子上拐，比当前节点大就往右孩子上拐的思路
 	//一路找下去，知道找到要查找的值返回即可
@@ -472,6 +493,7 @@ func (rbt RBTree) GetPredecessor(data float64) *TreeNode {
 	return nil
 }
 
+//寻找节点的后继节点
 func (rbt RBTree) GetSuccessor(data float64) *TreeNode {
 	getMin := func(node *TreeNode) *TreeNode {
 		if node == nil {
