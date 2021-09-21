@@ -3,6 +3,7 @@ package _3_r_b_tree
 import (
 	"data_structure/tree/common"
 	"fmt"
+	"strings"
 )
 
 var count int
@@ -73,16 +74,271 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 	if node == nil {
 		return
 	}
+	freeNode := func(n *TreeNode) {
+		n.color = "no mean"
+		n.lchild = nil
+		n.rchild = nil
+		n.parent = nil
+	}
 	switch {
-	//todo:删除节点是叶子节点，且不是root，且是黑色。这种情况后续再说。
-	//case node.lchild == nil && node.rchild == nil:
-	//	if node.parent == nil {
-	//		rbt.root = nil
-	//		return
-	//	}
+	case node.lchild == nil && node.rchild == nil:
+		if node.parent == nil {
+			rbt.root = nil
+			return
+		}
+		if node.color == "red" {
+			if node.parent.lchild == node {
+				node.parent.lchild = nil
+			} else {
+				node.parent.rchild = nil
+			}
+			freeNode(node)
+			return
+		} else {
+			//被删除节点是叶节点，并且是黑色。人为给它的父节点添加一个特殊的nil节点，该nil节点有两个黑色。保证删除后，黑色平衡
+			//这时，它就是删除操作中的2阶段调整。
+			trackNode := &TreeNode{
+				parent: node.parent,
+				color: "black+black",
+			}
+			if node.parent.lchild == node {
+				node.parent.lchild = trackNode
+			} else {
+				node.parent.rchild = trackNode
+			}
+			rbt.deleteStage2(trackNode)
+		}
+
+	/*
+		被删除节点只有一个子节点的时候，被删节点一定是黑，非nil子节点一定是红
+			 X-> a●                             b●
+				 / \             --------\      / \
+			   ○b  nil           --------/    nil  nil
+	*/
 	case node.lchild != nil && node.rchild == nil:
+		//node刚好又是root节点
+		if node.parent == nil {
+			node.lchild.parent = nil
+			rbt.root = node.lchild
+			freeNode(node)
+			return
+		}
+		//node.parent与node的相对位置关系
+		if node.parent.lchild == node {
+			node.parent.lchild = node.lchild
+		} else {
+			node.parent.rchild = node.lchild
+		}
+		node.lchild.parent = node.parent
+		freeNode(node)
+		return
+
+	/*
+		被删除节点只有一个子节点的时候，被删节点一定是黑，非nil子节点一定是红
+		     X-> a●                             b●
+		         / \             --------\      / \
+		       nil  ○b           --------/    nil  nil
+	*/
 	case node.lchild == nil && node.rchild != nil:
+		if node.parent == nil {
+			node.rchild.parent = nil
+			rbt.root = node.rchild
+			freeNode(node)
+			return
+		}
+		if node.parent.lchild == node {
+			node.parent.lchild = node.rchild
+		} else {
+			node.parent.rchild = node.rchild
+		}
+		node.rchild.parent = node.parent
+		freeNode(node)
+		return
+
+	/*
+	stage1:删除节点，保持黑色平衡，临时引入两个颜色的节点
+		（在node的lchild和rchild都不是nil的大前提下，它一定有后继）
+		1.后继就是右子节点，进入stage2
+		2.后继不是右子节点，进入stage2
+	stage2:去除两个颜色的节点
+		1.traceNode的兄弟节点是红色，调整；继续进行stage2的判断
+		2.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子黑调整；继续进行stage2的判断
+		3.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子红，调整；进入4
+		4.traceNode的兄弟节点是黑色，兄弟节点的右孩子红，调整；结束
+	 */
 	case node.lchild != nil && node.rchild != nil:
+		traceNode := rbt.deleteStage1(node)
+		if traceNode == nil {
+			return
+		}
+		rbt.deleteStage2(traceNode)
+	}
+}
+
+func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
+	defer func() {
+		node.color = "no mean"
+		node.lchild = nil
+		node.rchild = nil
+		node.parent = nil
+	}()
+
+	//（在node的lchild和rchild都不是nil的大前提下，它一定有后继）
+	successorNode := rbt.GetSuccessor(node.data)
+	oriColor := successorNode.color //保存后继节点原来的颜色
+	successorNode.color = node.color //后继节点的颜色与node一样
+
+	if node.rchild == successorNode {
+		if node.parent == nil {
+			successorNode.parent = nil
+			rbt.root = successorNode
+			rbt.root.color = "black"
+		} else {
+			successorNode.parent = node.parent
+			if node == node.parent.lchild {
+				node.parent.lchild = successorNode
+			} else {
+				node.parent.rchild = successorNode
+			}
+		}
+
+		successorNode.lchild = node.lchild
+		node.lchild.parent = successorNode
+
+		if oriColor == "red" {
+			return nil
+		} else {
+			//successorNode的右孩子，要么是红色非nil节点；要么是黑色nil节点
+			if successorNode.rchild == nil {
+				successorNode.rchild = &TreeNode{
+					parent: successorNode,
+					color: "black",
+				}
+			}
+			successorNode.rchild.color += "+black"
+
+			traceNode = successorNode.rchild
+			return traceNode
+		}
+	} else {
+		successorNodeParent := successorNode.parent
+		successorNodeRChild := successorNode.rchild
+		if node.parent == nil {
+			successorNode.parent = nil
+			rbt.root = successorNode
+			rbt.root.color = "black"
+		} else {
+			successorNode.parent = node.parent
+			if node == node.parent.lchild {
+				node.parent.lchild = successorNode
+			} else {
+				node.parent.rchild = successorNode
+			}
+		}
+
+		successorNode.lchild = node.lchild
+		node.lchild.parent = successorNode
+
+		node.rchild.parent = successorNode
+		successorNode.rchild = node.rchild
+
+		if oriColor == "red" {
+			successorNodeParent.lchild = nil
+			return nil
+		} else {
+			if successorNodeRChild == nil {
+				successorNodeRChild = &TreeNode{
+					color: "black",
+				}
+			}
+			successorNodeRChild.parent = successorNodeParent
+			successorNodeParent.lchild = successorNodeRChild
+			successorNodeRChild.color += "+black"
+
+			traceNode = successorNodeRChild
+			return traceNode
+		}
+	}
+}
+
+func (rbt *RBTree) deleteStage2(traceNode *TreeNode) {
+	var brother *TreeNode
+	for traceNode != rbt.root && strings.Contains(traceNode.color, "+black") {
+		if traceNode.parent.lchild == traceNode && traceNode.parent.rchild != nil {
+			brother = traceNode.parent.rchild
+			lCase1to4:
+				for {
+					switch {
+					case brother.color == "red":
+						brother.color = "black"
+						traceNode.parent.color = "red"
+						rbt.LeftRotate(traceNode.parent)
+					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "black":
+						brother.color = "red"
+						traceNode.color = strings.Split(traceNode.color, "+")[0]
+						traceNode = traceNode.parent
+						traceNode.color += "+black"
+						if traceNode.color == "black" {
+							traceNode.parent.lchild = nil
+						}
+						//traceNode变更，要重新找brother，所以break内层for循环
+						break lCase1to4
+					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "red" && brother.rchild != nil && brother.rchild.color == "black":
+						brother.color = "red"
+						brother.lchild.color = "black"
+						rbt.RightRotate(brother)
+						fallthrough
+					case brother.color == "black" && brother.rchild != nil && brother.rchild.color == "red":
+						brother.color = traceNode.parent.color
+						brother.parent.color = "black"
+						brother.rchild.color = "black"
+						traceNode.color = strings.Split(traceNode.color, "+")[0]
+						rbt.LeftRotate(brother.parent)
+						if traceNode.color == "black" {
+							traceNode.parent.lchild = nil
+						}
+						return
+					}
+				}
+		} else if traceNode.parent.rchild == traceNode && traceNode.parent.lchild != nil {
+			brother = traceNode.parent.lchild
+			rCase1to4:
+				for {
+					switch {
+					case brother.color == "red":
+						brother.color = "black"
+						traceNode.parent.color = "red"
+						rbt.RightRotate(traceNode.parent)
+					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "black":
+						brother.color = "red"
+						traceNode.color = strings.Split(traceNode.color, "+")[0]
+						traceNode = traceNode.parent
+						traceNode.color += "+black"
+						if traceNode.color == "black" {
+							traceNode.parent.lchild = nil
+						}
+						//traceNode变更，要重新找brother，所以break内层for循环
+						break rCase1to4
+					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "red":
+						brother.color = "red"
+						brother.rchild.color = "black"
+						rbt.LeftRotate(brother)
+						fallthrough
+					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "red":
+						brother.color = traceNode.parent.color
+						brother.parent.color = "black"
+						brother.lchild.color = "black"
+						traceNode.color = strings.Split(traceNode.color, "+")[0]
+						rbt.RightRotate(brother.parent)
+						if traceNode.color == "black" {
+							traceNode.parent.lchild = nil
+						}
+						return
+					}
+				}
+		} else {
+			return
+		}
 	}
 }
 
@@ -494,6 +750,7 @@ func (rbt RBTree) GetPredecessor(data float64) *TreeNode {
 }
 
 //寻找节点的后继节点
+//只要根据data能找到节点，那么返回nil就只有一种情况：该节点是序列中的最大节点
 func (rbt RBTree) GetSuccessor(data float64) *TreeNode {
 	getMin := func(node *TreeNode) *TreeNode {
 		if node == nil {
