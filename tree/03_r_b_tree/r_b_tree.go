@@ -81,11 +81,13 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 		n.parent = nil
 	}
 	switch {
+	//被删除节点是叶节点
 	case node.lchild == nil && node.rchild == nil:
 		if node.parent == nil {
 			rbt.root = nil
 			return
 		}
+		//红色节点删除不影响黑色平衡，只用把父节点的指针指向nil即可
 		if node.color == "red" {
 			if node.parent.lchild == node {
 				node.parent.lchild = nil
@@ -119,6 +121,7 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 		//node刚好又是root节点
 		if node.parent == nil {
 			node.lchild.parent = nil
+			node.lchild.color = "black"
 			rbt.root = node.lchild
 			freeNode(node)
 			return
@@ -130,6 +133,7 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 			node.parent.rchild = node.lchild
 		}
 		node.lchild.parent = node.parent
+		node.lchild.color = "black"
 		freeNode(node)
 		return
 
@@ -142,6 +146,7 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 	case node.lchild == nil && node.rchild != nil:
 		if node.parent == nil {
 			node.rchild.parent = nil
+			node.rchild.color = "black"
 			rbt.root = node.rchild
 			freeNode(node)
 			return
@@ -152,6 +157,7 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 			node.parent.rchild = node.rchild
 		}
 		node.rchild.parent = node.parent
+		node.rchild.color = "black"
 		freeNode(node)
 		return
 
@@ -162,7 +168,7 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 		2.后继不是右子节点，进入stage2
 	stage2:去除两个颜色的节点
 		1.traceNode的兄弟节点是红色，调整；继续进行stage2的判断
-		2.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子黑调整；继续进行stage2的判断
+		2.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子黑，调整；继续进行stage2的判断
 		3.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子红，调整；进入4
 		4.traceNode的兄弟节点是黑色，兄弟节点的右孩子红，调整；结束
 	 */
