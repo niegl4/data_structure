@@ -297,3 +297,35 @@ func (biS *BiSearchTree) inOrderTraverse(op common.Operate) {
 	op(biS.Data)
 	biS.rChild.inOrderTraverse(op)
 }
+
+type TreeNode struct {
+	data   float64
+	lchild *TreeNode
+	rchild *TreeNode
+	parent *TreeNode
+}
+
+type BiSTree struct {
+	root   *TreeNode
+	cur    *TreeNode
+	create *TreeNode
+}
+
+func (bit *BiSTree) Add(data float64) {
+
+}
+
+func (bit *BiSTree) Delete(data float64) {
+
+}
+
+func (bit *BiSTree) InOrderTravel(op common.Operate) {
+
+}
+
+func (bit BiSTree) IsEmpty() bool {
+	if bit.root == nil {
+		return true
+	}
+	return false
+}
