@@ -108,6 +108,7 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 			} else {
 				node.parent.rchild = trackNode
 			}
+			freeNode(node)
 			rbt.deleteStage2(trackNode)
 		}
 
@@ -194,7 +195,9 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 	oriColor := successorNode.color //保存后继节点原来的颜色
 	successorNode.color = node.color //后继节点的颜色与node一样
 
+	//1.后继就是右子节点
 	if node.rchild == successorNode {
+		//后继节点与被删除节点的父节点。其中要特殊考虑：被删除节点就是root
 		if node.parent == nil {
 			successorNode.parent = nil
 			rbt.root = successorNode
@@ -208,9 +211,13 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 			}
 		}
 
+		//后继节点与被删除节点的左子节点
 		successorNode.lchild = node.lchild
 		node.lchild.parent = successorNode
 
+		//这种情况下，不需要考虑后继节点与被删除节点的右子节点之间的关系。
+
+		//后继节点的初始颜色是黑色时，进行特殊标记
 		if oriColor == "red" {
 			return nil
 		} else {
@@ -226,9 +233,10 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 			traceNode = successorNode.rchild
 			return traceNode
 		}
-	} else {
+	} else {  //2.后继不是右子节点
 		successorNodeParent := successorNode.parent
 		successorNodeRChild := successorNode.rchild
+		//后继节点与被删除节点的父节点。其中要特殊考虑：被删除节点就是root
 		if node.parent == nil {
 			successorNode.parent = nil
 			rbt.root = successorNode
@@ -242,14 +250,17 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 			}
 		}
 
+		//后继节点与被删除节点的左子节点
 		successorNode.lchild = node.lchild
 		node.lchild.parent = successorNode
 
+		//后继节点与被删除节点的右子节点
 		node.rchild.parent = successorNode
 		successorNode.rchild = node.rchild
 
-		if oriColor == "red" {
-			successorNodeParent.lchild = nil
+		//后继节点的初始颜色是黑色时，进行特殊标记
+		if oriColor == "red" {//红色时，后继原来的父的左孩子，指向后继原来的右孩子，不管这个右孩子是否是nil
+			successorNodeParent.lchild = successorNodeRChild
 			return nil
 		} else {
 			if successorNodeRChild == nil {
@@ -774,9 +785,9 @@ func (rbt RBTree) GetSuccessor(data float64) *TreeNode {
 	//参照寻找直接前驱的函数对比着看
 	node := rbt.Search(data)
 	if node != nil {
-		if node.rchild != nil {
+		if node.rchild != nil { //第一种情况：节点的右子节点不是nil，那么就在右子树中寻找
 			return getMin(node.rchild)
-		} else {
+		} else { //第二种情况：节点的右子节点是nil，那么一直判断节点与父节点的相对位置，逐级向上寻找
 			for {
 				if node == nil || node.parent == nil {
 					break
