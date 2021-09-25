@@ -259,8 +259,8 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 		successorNode.rchild = node.rchild
 
 		//后继节点的初始颜色是黑色时，进行特殊标记
-		if oriColor == "red" {//红色时，后继原来的父的左孩子，指向后继原来的右孩子，不管这个右孩子是否是nil
-			successorNodeParent.lchild = successorNodeRChild
+		if oriColor == "red" {//红色时，后继原来的父的左孩子，指向后继原来的右孩子，也就是nil（红色后继节点，它的右孩子必然是nil）
+			successorNodeParent.lchild = nil
 			return nil
 		} else {
 			if successorNodeRChild == nil {
