@@ -25,4 +25,11 @@ func TestBiTree_PreOrderTraverse(t *testing.T) {
 	t.Log("BiTree 后序遍历")
 	BiTreeRoot.PostOrderTraverse(biTestOp)
 	t.Logf("%v", tmp)
+	t.Log("\n")
+
+	var biTestLevelOp common.Operate = func(data interface{}) () {
+		t.Log(data)
+	}
+	t.Log("BiTree 层序遍历")
+	BiTreeRoot.LevelOrderTraverse(biTestLevelOp)
 }

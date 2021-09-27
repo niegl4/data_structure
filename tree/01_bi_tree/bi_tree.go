@@ -68,3 +68,33 @@ func (bi *BiTree) PostOrderTraverse(op common.Operate) {
 	bi.rChild.PostOrderTraverse(op)
 	op(bi.Data)
 }
+
+// 二叉树的层序遍历
+func (bi *BiTree) LevelOrderTraverse(op common.Operate) {
+	if bi == nil {
+		return
+	}
+	levelSet := make([][]interface{}, 0)
+	queue := []*BiTree{bi}
+	for len(queue) > 0 {
+		//[当前]队列长度，在队列中插入数据前计算一次，内层循环入队的元素不影响n
+		n := len(queue)
+		level := make([]interface{}, 0)
+		//内层循环相当于处理同一层的逻辑
+		for i := 0; i < n; i++ {
+			//1.子节点入队
+			if queue[i].lChild != nil {
+				queue = append(queue, queue[i].lChild)
+			}
+			if queue[i].rChild != nil {
+				queue = append(queue, queue[i].rChild)
+			}
+			//2.本节点的值入本层结果
+			level = append(level, queue[i].Data)
+		}
+		levelSet = append(levelSet, level)
+		//queue截取掉本层
+		queue = queue[n:]
+	}
+	op(levelSet)
+}
