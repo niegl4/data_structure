@@ -29,6 +29,23 @@ func TestRBTree_Delete(t *testing.T) {
 	rbt.Add(1)
 	rbt.InOrderTravel(rbtOp)
 
+	//这个例子可以说明，原本的Delete方法有bug
 	rbt.Delete(float64(2))
+	rbt.InOrderTravel(rbtOp)
+}
+
+func TestRBTree_DeleteByMe(t *testing.T) {
+	var (
+		rbtOp = func(data interface{}) {
+			t.Log(data)
+		}
+	)
+	var rbt RBTree
+	rbt.Add(2)
+	rbt.Add(1)
+	rbt.InOrderTravel(rbtOp)
+
+	//这个例子可以说明，原本的Delete方法有bug
+	rbt.DeleteByMe(float64(2))
 	rbt.InOrderTravel(rbtOp)
 }
