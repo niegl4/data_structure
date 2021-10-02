@@ -53,8 +53,7 @@ func (l *LinkedList) HasCycle() bool {
 	return false
 }
 
-
-//两个有序单链表合并
+//两个有序单链表合并：一次循环处理两个链表，被pick的链表指针移动，另一个不移动。
 func (l *LinkedList)MergeSortedList(newList *LinkedList) *LinkedList {
 	if l == nil || l.head == nil || l.head.next == nil {
 		return newList
@@ -84,4 +83,49 @@ func (l *LinkedList)MergeSortedList(newList *LinkedList) *LinkedList {
 		retCur.next = cur1
 	}
 	return retList
+}
+
+//删除倒数第N个节点：先获取正数第N个节点，再快、慢指针一起移动。这种做法很好的平衡了N接近链表尾部/头部的情况。
+func (l *LinkedList) DeleteBottomN(n int) {
+	if n <= 0 || l == nil || l.head == nil || l.head.next == nil {
+		return
+	}
+
+	//先获取正数第N个节点
+	fast := l.head //从head开始，那么结束的时候，fast刚好就是第n个节点
+	for i := 1; i <= n && fast != nil; i++ {
+		fast = fast.next
+	}
+	//上面循环结束的原因，如果是fast为nil，而不是计数到达，那么说明链表内没有倒数第N个节点
+	if fast == nil {
+		return
+	}
+
+
+	slow := l.head
+	for fast.next != nil {//fast为nil的时候，slow刚好是倒数第N+1个节点，方便删除。
+		slow = slow.next
+		fast = fast.next
+	}
+	slow.next = slow.next.next
+}
+
+//获取中间节点
+func (l *LinkedList) FindMiddleNode() *ListNode {
+	//空链表，返回nil
+	if l == nil || l.head == nil || l.head.next == nil {
+		return nil
+	}
+	//只有一个节点的链表
+	if l.head.next.next == nil {
+		return l.head.next
+	}
+
+	//快，慢指针的步距为2，1。当链表有偶数个节点时，触发fast.next=nil;当链表有奇数个节点时，触发fast=nil。
+	slow, fast := l.head, l.head
+	for fast != nil && fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+	}
+	return slow
 }
