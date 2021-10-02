@@ -52,3 +52,36 @@ func (l *LinkedList) HasCycle() bool {
 	}
 	return false
 }
+
+
+//两个有序单链表合并
+func (l *LinkedList)MergeSortedList(newList *LinkedList) *LinkedList {
+	if l == nil || l.head == nil || l.head.next == nil {
+		return newList
+	}
+	if newList == nil || newList.head == nil || newList.head.next == nil {
+		return l
+	}
+	retList := &LinkedList{head: &ListNode{}}
+	retCur := retList.head
+	cur1 := l.head.next
+	cur2 := newList.head.next
+	for cur1 != nil && cur2 != nil {//两个原始链表都不是空，才有比较的意义
+		if cur1.value.(int) < cur2.value.(int) { //被合并进结果链表的是cur1，所以只有cur1指针移动
+			retCur.next = cur1
+			cur1 = cur1.next
+		} else {
+			retCur.next = cur2
+			cur2 = cur2.next
+		}
+		retCur = retCur.next//结果链表append进了元素，所以retCur总是移动
+	}
+
+	//处理可能剩余的链表
+	if cur1 == nil {
+		retCur.next = cur2
+	} else if cur2 == nil {
+		retCur.next = cur1
+	}
+	return retList
+}
