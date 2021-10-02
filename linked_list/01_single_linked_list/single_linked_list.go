@@ -110,7 +110,7 @@ func (l *LinkedList) DeleteBottomN(n int) {
 	slow.next = slow.next.next
 }
 
-//获取中间节点
+//获取中间节点：快指针，步长为2；慢指针，步长为1；快指针为nil或者快指针的next为nil，慢指针就是中间节点。
 func (l *LinkedList) FindMiddleNode() *ListNode {
 	//空链表，返回nil
 	if l == nil || l.head == nil || l.head.next == nil {
