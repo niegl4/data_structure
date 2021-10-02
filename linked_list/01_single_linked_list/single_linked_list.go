@@ -34,3 +34,21 @@ func (l *LinkedList) Reverse() {
 	//l.head.next就是链表的第一个元素。循环结束的时候，pre就是原来链表的最后一个元素。
 	l.head.next = pre
 }
+
+//判断单链表是否有环：快指针，步长为2；慢指针，步长为1；如果有环，它们一定会相遇。
+func (l *LinkedList) HasCycle() bool {
+	if l == nil || l.head == nil {
+		return false
+	}
+
+	slow := l.head
+	fast := l.head
+	for fast != nil && fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+		if slow == fast {
+			return true
+		}
+	}
+	return false
+}
