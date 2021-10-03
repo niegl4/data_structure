@@ -3,7 +3,7 @@ package selection
 func NoUse() {}
 
 //寻找最小元素，与当前元素交换
-func SelectionSort(input []int) {
+func SelectSort(input []int) {
 	n := len(input)
 	if n <= 1 {
 		return

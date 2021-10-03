@@ -1,7 +1,7 @@
 package quicksort
 
 import (
-	mySort "leecode/sort"
+	mySort "data_structure/sort"
 	"testing"
 )
 
