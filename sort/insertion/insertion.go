@@ -12,9 +12,9 @@ func InsertSort(input []int) {
 	for i := 0; i < n-1; i++ {
 		//当前>后一个，再进入循环
 		if input[i] > input[i+1] {
-			//记录这个后一个的值
+			//记录这个最新出现的小元素
 			temp := input[i+1]
-			//从当前直到第0个，逐个与temp比，比temp大就向后填充。todo：没必要从j=i开始吧，从i-1开始
+			//从当前直到第0个，逐个与temp比，比temp大就向后填充。
 			for j = i; j >= 0 && input[j] > temp; j-- {
 				input[j+1] = input[j]
 			}
