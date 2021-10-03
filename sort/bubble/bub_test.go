@@ -6,17 +6,22 @@ import (
 )
 
 /*
-go test
+单元测试
+go test -v
 -v 查看测试函数名称和运行时间
+
+go test -v -cover
 -cover 查看测试覆盖率
+
+go test -v -cover -coverprofile bub.out
 -coverprofile 覆盖率信息输出到一个文件
-
-go tool cover -html=文件名
+go tool cover -html=bub.out
 浏览器窗口展示覆盖信息
-
 -----------------------------
+性能测试
 go test
--bench 指定函数名（函数名就是BenchmarkBubSort1去掉Benchmark前缀），或者.（表示执行所有基准测试函数）
+-bench 指定函数名（函数名就是BenchmarkBubSort1去掉Benchmark前缀），或者.（表示执行所有基准测试函数）。该字段是一个正则表达式。
+
 输出结果的字段解释：
 BenchmarkBubSort1-16：对BubSort1函数进行基准测试，16表示GOMAXPROCS，表示了并行能力
 第二列的数字：被测函数执行的总次数
@@ -25,11 +30,7 @@ BenchmarkBubSort1-16：对BubSort1函数进行基准测试，16表示GOMAXPROCS�
 -benchmem 获得内存分配的统计数据
 第四列xxx B/op：每次操作分配的内存大小
 第五列xxx allocs/op：每次操作的内存分配次数
-
-
 -----------------------------
-
-
 */
 
 func TestBubble1(t *testing.T) {
