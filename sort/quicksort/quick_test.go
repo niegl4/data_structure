@@ -24,7 +24,7 @@ func TestQuickSort(t *testing.T) {
 
 func TestQuickSort2(t *testing.T) {
 	t.Log(mySort.Sli1)
-	res := QuickSort2(mySort.Sli1)
+	res := Sort2(mySort.Sli1)
 
 	isSort := mySort.CheckSlice(res)
 	if !isSort {

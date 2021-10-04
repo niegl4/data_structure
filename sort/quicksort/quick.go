@@ -31,22 +31,22 @@ func QuickSort(inputArr []int) []int {
 }
 
 //原地排序版快排，即空间复杂度是O(1)
-func QuickSort2(inputArr []int) []int {
+func Sort2(inputArr []int) []int {
 	n := len(inputArr)
 	if n < 2 {
 		return inputArr
 	}
-	quick2(inputArr, 0, n-1)
+	sort2(inputArr, 0, n-1)
 	return inputArr
 }
 
-func quick2(inputArr []int, p, r int) {
+func sort2(inputArr []int, p, r int) {
 	if p >= r {
 		return
 	}
 	q := partition2(inputArr, p, r)
-	quick2(inputArr, p, q-1)
-	quick2(inputArr, q+1, r)
+	sort2(inputArr, p, q-1)
+	sort2(inputArr, q+1, r)
 }
 
 //空间复杂度O(1)，关键就在该分区函数中。比pivot小，才与索引i的元素交换。循环跳出时，索引比i小的元素，都比pivot小。
