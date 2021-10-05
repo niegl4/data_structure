@@ -53,3 +53,87 @@ func BSearch2(inputArr []int, val int) (index int) {
 	}
 	return search(0, len(inputArr)-1)
 }
+
+//二分查找扩展1：查找第一个值等于给定值的元素
+func BSearchExtend1(inputArr []int, val int) (index int) {
+	low := 0
+	high := len(inputArr) - 1
+
+	for low <= high {
+		mid := low + ((low + high) >> 1)
+		if inputArr[mid] < val {
+			low = mid + 1
+		} else if inputArr[mid] > val {
+			high = mid - 1
+		} else {
+			if mid == 0 || inputArr[mid-1] != val {
+				return mid
+			} else {
+				high = mid - 1
+			}
+		}
+	}
+	return -1
+}
+
+//二分查找扩展2：查找最后一个值等于给定值的元素
+func BSearchExtend2(inputArr []int, val int) (index int) {
+	low := 0
+	high := len(inputArr) - 1
+
+	for low <= high {
+		mid := low + ((low + high) >> 1)
+		if inputArr[mid] < val {
+			low = mid + 1
+		} else if inputArr[mid] > val {
+			high = mid - 1
+		} else {
+			if mid == len(inputArr)-1 || inputArr[mid+1] != val {
+				return mid
+			} else {
+				low = mid + 1
+			}
+		}
+	}
+	return -1
+}
+
+//二分查找扩展3：查找第一个大于等于给定值的元素
+func BSearchExtend3(inputArr []int, val int) (index int) {
+	low := 0
+	high := len(inputArr) - 1
+
+	for low <= high {
+		mid := low + ((low + high) >> 1)
+		if inputArr[mid] >= val {
+			if mid == 0 || inputArr[mid-1] < val {
+				return mid
+			} else {
+				high = mid - 1
+			}
+		} else {
+			low = mid + 1
+		}
+	}
+	return -1
+}
+
+//二分查找扩展4：查找最后一个小于等于给定值的元素
+func BSearchExtend4(inputArr []int, val int) (index int) {
+	low := 0
+	high := len(inputArr) - 1
+
+	for low <= high {
+		mid := low + ((low + high) >> 1)
+		if inputArr[mid] <= val {
+			if mid == len(inputArr)-1 || inputArr[mid+1] > val {
+				return mid
+			} else {
+				low = mid + 1
+			}
+		} else {
+			high = mid - 1
+		}
+	}
+	return -1
+}
