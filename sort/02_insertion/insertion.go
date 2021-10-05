@@ -1,4 +1,4 @@
-package insertion
+package _2_insertion
 
 //不断将一个记录插入到前面已经排好序的有序列表中
 func InsertSort(input []int) {

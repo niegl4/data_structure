@@ -1,4 +1,4 @@
-package quicksort
+package _5_quicksort
 
 import (
 	mySort "data_structure/sort"

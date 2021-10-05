@@ -1,13 +1,13 @@
-package insertion
+package _3_selection
 
 import (
 	mySort "data_structure/sort"
 	"testing"
 )
 
-func TestInsertion(t *testing.T) {
+func TestSelectionSort(t *testing.T) {
 	t.Log(mySort.Sli1)
-	InsertSort(mySort.Sli1)
+	SelectSort(mySort.Sli1)
 
 	isSort := mySort.CheckSlice(mySort.Sli1)
 	if !isSort {
@@ -20,3 +20,5 @@ func TestInsertion(t *testing.T) {
 	}
 	t.Log(mySort.Sli1)
 }
+
+

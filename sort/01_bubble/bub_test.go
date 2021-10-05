@@ -1,4 +1,4 @@
-package bubble
+package _1_bubble
 
 import (
 	mySort "data_structure/sort"
