@@ -1,4 +1,4 @@
-package _4_mergesort
+package _4_merge
 
 import (
 	mySort "leecode/sort"

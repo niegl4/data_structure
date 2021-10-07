@@ -1,4 +1,4 @@
-package _4_mergesort
+package _4_merge
 
 //先切分，再排序
 //最后从最小的单位逐级返回，每次返回都是有序的
