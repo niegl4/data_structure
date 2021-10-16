@@ -254,7 +254,7 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 		successorNode.lchild = node.lchild
 		node.lchild.parent = successorNode
 
-		//后继节点与被删除节点的右子节点
+		//这种情况下需要考虑，后继节点与被删除节点的右子节点之间的指向
 		node.rchild.parent = successorNode
 		successorNode.rchild = node.rchild
 
@@ -268,8 +268,10 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 					color: "black",
 				}
 			}
+			//这种情况下需要考虑，后继节点的右孩子与后继节点的父节点之间的指向
 			successorNodeRChild.parent = successorNodeParent
 			successorNodeParent.lchild = successorNodeRChild
+
 			successorNodeRChild.color += "+black"
 
 			traceNode = successorNodeRChild
@@ -291,12 +293,13 @@ func (rbt *RBTree) deleteStage2(traceNode *TreeNode) {
 						traceNode.parent.color = "red"
 						rbt.LeftRotate(traceNode.parent)
 					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "black":
+						pre := traceNode
 						brother.color = "red"
-						traceNode.color = strings.Split(traceNode.color, "+")[0]
+						pre.color = strings.Split(pre.color, "+")[0]
 						traceNode = traceNode.parent
 						traceNode.color += "+black"
-						if traceNode.color == "black" {
-							traceNode.parent.lchild = nil
+						if pre.color == "black" { //之前的traceNode为black+black的时候，说明它是一个nil节点
+							traceNode.lchild = nil
 						}
 						//traceNode变更，要重新找brother，所以break内层for循环
 						break lCase1to4
@@ -327,12 +330,13 @@ func (rbt *RBTree) deleteStage2(traceNode *TreeNode) {
 						traceNode.parent.color = "red"
 						rbt.RightRotate(traceNode.parent)
 					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "black":
+						pre := traceNode
 						brother.color = "red"
-						traceNode.color = strings.Split(traceNode.color, "+")[0]
+						pre.color = strings.Split(pre.color, "+")[0]
 						traceNode = traceNode.parent
 						traceNode.color += "+black"
-						if traceNode.color == "black" {
-							traceNode.parent.lchild = nil
+						if pre.color == "black" {
+							traceNode.rchild = nil
 						}
 						//traceNode变更，要重新找brother，所以break内层for循环
 						break rCase1to4
@@ -348,7 +352,7 @@ func (rbt *RBTree) deleteStage2(traceNode *TreeNode) {
 						traceNode.color = strings.Split(traceNode.color, "+")[0]
 						rbt.RightRotate(brother.parent)
 						if traceNode.color == "black" {
-							traceNode.parent.lchild = nil
+							traceNode.parent.rchild = nil
 						}
 						return
 					}
