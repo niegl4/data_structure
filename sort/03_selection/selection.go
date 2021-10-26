@@ -1,7 +1,5 @@
 package _3_selection
 
-func NoUse() {}
-
 //寻找最小元素，与当前元素交换
 func SelectSort(arr []int) {
 	n := len(arr)

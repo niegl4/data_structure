@@ -31,34 +31,36 @@ func QuickSort(inputArr []int) []int {
 }
 
 //原地排序版快排，即空间复杂度是O(1)
-func Sort2(inputArr []int) []int {
-	n := len(inputArr)
+func QuickSort2(arr []int) []int {
+	n := len(arr)
 	if n < 2 {
-		return inputArr
+		return arr
 	}
-	sort2(inputArr, 0, n-1)
-	return inputArr
+	quickSort2(arr, 0, n-1)
+	return arr
 }
 
-func sort2(inputArr []int, p, r int) {
+//p:数组下标起点, r:数组下标终点
+func quickSort2(arr []int, p, r int) {
 	if p >= r {
 		return
 	}
-	q := partition2(inputArr, p, r)
-	sort2(inputArr, p, q-1)
-	sort2(inputArr, q+1, r)
+	q := partition2(arr, p, r)
+	quickSort2(arr, p, q-1)
+	quickSort2(arr, q+1, r)
 }
 
 //空间复杂度O(1)，关键就在该分区函数中。比pivot小，才与索引i的元素交换。循环跳出时，索引比i小的元素，都比pivot小。
-func partition2(inputArr []int, p, r int) (q int) {
-	pivot := inputArr[r]
+func partition2(arr []int, p, r int) (q int) {
+	pivot := arr[r]
+	//注意：i，j不同步。循环结束，i就是arr[r]的位置
 	i := p
 	for j := p; j <= r-1; j++ {
-		if inputArr[j] < pivot {
-			inputArr[i], inputArr[j] = inputArr[j], inputArr[i]
+		if arr[j] < pivot {
+			arr[i], arr[j] = arr[j], arr[i]
 			i++
 		}
 	}
-	inputArr[i], inputArr[r] = inputArr[r], inputArr[i]
+	arr[i], arr[r] = arr[r], arr[i]
 	return i
 }
