@@ -48,7 +48,7 @@ func BubSort3(inputArr []int) {
 	flag := true
 	for i := 0; i < num && flag; i++ {
 		flag = false
-		for j := num - 2; j >= i; j-- {
+		for j := num - 2; j >= i; j-- { //总是从倒数第2个元素开始，从后往前。倒数第2，就是num-2.
 			if inputArr[j] > inputArr[j+1] {
 				inputArr[j], inputArr[j+1] = inputArr[j+1], inputArr[j]
 				flag = true
