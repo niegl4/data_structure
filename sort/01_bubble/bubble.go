@@ -39,8 +39,8 @@ func BubSort2(inputArr []int) {
 
 //优化后的冒泡排序。如果某一次"冒泡"过程中，没有交换任何元素，那么说明这些元素已经是有序的，就可以及时结束排序。
 //通过设置标志位，来实现判断。
-func BubSort3(inputArr []int) {
-	num := len(inputArr)
+func BubSort3(arr []int) {
+	num := len(arr)
 	if num <= 1 {
 		return
 	}
@@ -49,8 +49,8 @@ func BubSort3(inputArr []int) {
 	for i := 0; i < num && flag; i++ {
 		flag = false
 		for j := num - 2; j >= i; j-- { //总是从倒数第2个元素开始，从后往前。倒数第2，就是num-2.
-			if inputArr[j] > inputArr[j+1] {
-				inputArr[j], inputArr[j+1] = inputArr[j+1], inputArr[j]
+			if arr[j] > arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
 				flag = true
 			}
 		}
