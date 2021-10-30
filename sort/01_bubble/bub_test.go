@@ -109,3 +109,10 @@ func BenchmarkBubSort1Num20(b *testing.B) {
 	}
 }
 
+//80ns/op
+func BenchmarkBubSort3Num20(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		BubSort3([]int{9, 1, 5, 8, 3, 10, 7, 4, 6, 2, 20, 19, 18, 17, 16, 15, 14, 12, 11})
+	}
+}
+
