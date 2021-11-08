@@ -99,6 +99,24 @@ func (l *LinkedList) HasCycle() bool {
 	return false
 }
 
+//不带头
+func (n *ListNode) HasCycle() bool {
+	if n == nil {
+		return false
+	}
+
+	slow := n
+	fast := n
+	for fast != nil && fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+		if slow == fast {
+			return true
+		}
+	}
+	return false
+}
+
 //-----------------------------------两个有序单链表合并：一次循环处理两个链表，被pick的链表指针移动，另一个不移动。
 //带头
 func (l *LinkedList)MergeSortedList(newList *LinkedList) *LinkedList {

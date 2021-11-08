@@ -68,3 +68,23 @@ func TestListNode_Reverse(t *testing.T) {
 
 	t.Log(l3.Reverse().format())
 }
+
+func Test_HasCycle(t *testing.T) {
+	node1 := &ListNode{value: 1, next: nil}
+	node2 := &ListNode{value: 2, next: nil}
+	node3 := &ListNode{value: 3, next: nil}
+	node4 := &ListNode{value: 4, next: nil}
+	node5 := &ListNode{value: 5, next: nil}
+	node1.next = node2
+	node2.next = node3
+	node3.next = node4
+	node4.next = node5
+	node5.next = node2
+	l := &LinkedList{head: &ListNode{next: node1}}
+	t.Log(l.HasCycle())
+	t.Log(node1.HasCycle())
+
+	node5.next = nil
+	t.Log(l.HasCycle())
+	t.Log(node1.HasCycle())
+}
