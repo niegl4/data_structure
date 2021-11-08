@@ -6,12 +6,39 @@ type ListNode struct {
 	value interface{}
 }
 
-//单链表。在任何时候，不管链表是不是空，head 指针都会一直指向一个哨兵结点，哨兵节点再指向链表的第一个节点。
+func (l *ListNode) format() (res []interface{}) {
+	if l == nil {
+		return nil
+	}
+	res = make([]interface{}, 0, 8)
+	cur := l
+	for cur != nil {
+		res = append(res, cur.value)
+		cur = cur.next
+	}
+	return res
+}
+
+//单链表。在任何时候，不管链表是不是空，head 指针都会一直指向一个哨兵结点，哨兵节点再指向链表的第一个节点。也即head.next是第一个节点。
 type LinkedList struct {
 	head *ListNode
 }
 
-//单链表反转：pre，cur，next三个指针的步进
+func (l *LinkedList) format() (res []interface{}) {
+	if l == nil || l.head == nil {
+		return nil
+	}
+	res = make([]interface{}, 0, 8)
+	cur := l.head.next
+	for cur != nil {
+		res = append(res, cur.value)
+		cur = cur.next
+	}
+	return res
+}
+
+//-----------------------------------单链表反转:pre，cur，next三个指针的步进
+//带头
 func (l *LinkedList) Reverse() {
 	//l为空 or l的哨兵节点字段为空 or 空链表 or 只有一个节点的链表
 	if l == nil || l.head == nil || l.head.next == nil || l.head.next.next == nil {
@@ -35,7 +62,26 @@ func (l *LinkedList) Reverse() {
 	l.head.next = pre
 }
 
-//判断单链表是否有环：快指针，步长为2；慢指针，步长为1；如果有环，它们一定会相遇。
+//不带头
+func (n *ListNode) Reverse() (head *ListNode) {
+	if n == nil || n.next == nil {
+		return n
+	}
+
+	pre := &ListNode{}
+	cur := n
+	for cur != nil {
+		next := cur.next
+
+		cur.next = pre
+		pre = cur
+		cur = next
+	}
+	return pre
+}
+
+//-----------------------------------判断单链表是否有环:快指针，步长为2；慢指针，步长为1；如果有环，它们一定会相遇
+//带头
 func (l *LinkedList) HasCycle() bool {
 	if l == nil || l.head == nil {
 		return false
@@ -53,7 +99,8 @@ func (l *LinkedList) HasCycle() bool {
 	return false
 }
 
-//两个有序单链表合并：一次循环处理两个链表，被pick的链表指针移动，另一个不移动。
+//-----------------------------------两个有序单链表合并：一次循环处理两个链表，被pick的链表指针移动，另一个不移动。
+//带头
 func (l *LinkedList)MergeSortedList(newList *LinkedList) *LinkedList {
 	if l == nil || l.head == nil || l.head.next == nil {
 		return newList
@@ -85,7 +132,8 @@ func (l *LinkedList)MergeSortedList(newList *LinkedList) *LinkedList {
 	return retList
 }
 
-//删除倒数第N个节点：先获取正数第N个节点，再快、慢指针一起移动。这种做法很好的平衡了N接近链表尾部/头部的情况。
+//-----------------------------------删除倒数第N个节点：先获取正数第N个节点，再快、慢指针一起移动。这种做法很好的平衡了N接近链表尾部/头部的情况。
+//带头
 func (l *LinkedList) DeleteBottomN(n int) {
 	if n <= 0 || l == nil || l.head == nil || l.head.next == nil {
 		return
@@ -110,7 +158,8 @@ func (l *LinkedList) DeleteBottomN(n int) {
 	slow.next = slow.next.next
 }
 
-//获取中间节点：快指针，步长为2；慢指针，步长为1；快指针为nil或者快指针的next为nil，慢指针就是中间节点。
+//-----------------------------------获取中间节点：快指针，步长为2；慢指针，步长为1；快指针为nil或者快指针的next为nil，慢指针就是中间节点。
+//带头
 func (l *LinkedList) FindMiddleNode() *ListNode {
 	//空链表，返回nil
 	if l == nil || l.head == nil || l.head.next == nil {
