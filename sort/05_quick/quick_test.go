@@ -24,18 +24,18 @@ func TestQuickSort(t *testing.T) {
 
 func TestQuickSort2(t *testing.T) {
 	t.Log(mySort.Sli1)
-	res := QuickSort2(mySort.Sli1)
+	QuickSort2(mySort.Sli1)
 
-	isSort := mySort.CheckSlice(res)
+	isSort := mySort.CheckSlice(mySort.Sli1)
 	if !isSort {
-		t.Error(res)
+		t.Error(mySort.Sli1)
 		return
 	}
 
 	if isSort {
-		t.Logf("normal")
+		t.Log("normal")
 	}
-	t.Log(res)
+	t.Log(mySort.Sli1)
 }
 
 func TestQuickSearch(t *testing.T) {

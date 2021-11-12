@@ -31,13 +31,13 @@ func QuickSort(inputArr []int) []int {
 }
 
 //原地排序版快排，即空间复杂度是O(1)
-func QuickSort2(arr []int) []int {
+func QuickSort2(arr []int) {
 	n := len(arr)
 	if n < 2 {
-		return arr
+		return
 	}
 	quickSort2(arr, 0, n-1)
-	return arr
+	return
 }
 
 //p:数组下标起点, r:数组下标终点
