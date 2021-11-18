@@ -25,15 +25,15 @@ func quickSort(arr []int, p, r int) {
 func partition(arr []int, p, r int) (q int) {
 	pivot := arr[r]
 	//注意：i，j不同步。循环结束，i就是arr[r]的位置
-	i := p
-	for j := p; j <= r-1; j++ {
-		if arr[j] < pivot {
-			arr[i], arr[j] = arr[j], arr[i]
-			i++
+	q = p
+	for i := p; i < r; i++ {
+		if arr[i] < pivot {
+			arr[i], arr[q] = arr[q], arr[i]
+			q++
 		}
 	}
-	arr[i], arr[r] = arr[r], arr[i]
-	return i
+	arr[q], arr[r] = arr[r], arr[q]
+	return q
 }
 
 /*O
