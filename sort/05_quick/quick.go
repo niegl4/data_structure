@@ -4,7 +4,7 @@ package _5_quick
 //最后从最小的单位逐级返回，每次返回都是有序的
 //原地排序版快排，即空间复杂度是O(1)
 func QuickSort(arr []int, n int) {
-	if n <= 1 {
+	if len(arr) <= 1 || n <= 1 {
 		return
 	}
 	quickSort(arr, 0, n-1)

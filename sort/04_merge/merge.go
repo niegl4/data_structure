@@ -3,7 +3,7 @@ package _4_merge
 //先切分，再排序
 //最后从最小的单位逐级返回，每次返回都是有序的
 func MergeSort(a []int, n int) {
-	if n <= 1 {
+	if len(a) <=1 || n <= 1 {
 		return
 	}
 	mergeSort(a, 0, n-1)
