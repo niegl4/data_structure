@@ -1,5 +1,10 @@
 package _1_single_linked_list
 
+import (
+	stack2 "data_structure/stack"
+	"fmt"
+)
+
 //单链表节点
 type ListNode struct {
 	next  *ListNode
@@ -35,6 +40,28 @@ func (l *LinkedList) format() (res []interface{}) {
 		cur = cur.next
 	}
 	return res
+}
+
+//-----------------------------------单链表从尾到头打印:借助栈实现
+/*
+六
+单链表从尾到头打印，不允许修改链表
+
+时间复杂度O(n)，空间复杂度O(n)
+ */
+func(n *ListNode) PrintReverse() {
+	if n == nil {
+		return
+	}
+	stack := stack2.NewStack()
+	next := n
+	for next != nil {
+		stack.Push(next.value.(int))
+		next = next.next
+	}
+	for stack.Len() > 0 {
+		fmt.Println(stack.Pop())
+	}
 }
 
 //-----------------------------------单链表反转:pre，cur，next三个指针的步进
