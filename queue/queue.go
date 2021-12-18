@@ -5,25 +5,25 @@ import (
 	"errors"
 )
 
-type queue struct {
+type Queue struct {
 	list *list.List
 }
 
-func NewQueue() *queue {
-	return &queue{
+func NewQueue() *Queue {
+	return &Queue{
 		list: list.New(),
 	}
 }
 
-func (q *queue) Len() int {
+func (q *Queue) Len() int {
 	return q.list.Len()
 }
 
-func (q *queue) In(val int) {
+func (q *Queue) In(val int) {
 	q.list.PushBack(val)
 }
 
-func (q *queue) Out() (val int, err error) {
+func (q *Queue) Out() (val int, err error) {
 	if q.list.Len() == 0 {
 		return 0, errors.New("queue is empty")
 	}

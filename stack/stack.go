@@ -5,25 +5,25 @@ import (
 	"errors"
 )
 
-type stack struct {
+type Stack struct {
 	list *list.List
 }
 
-func NewStack() *stack {
-	return &stack{
+func NewStack() *Stack {
+	return &Stack{
 		list: list.New(),
 	}
 }
 
-func (s *stack) Len() int {
+func (s *Stack) Len() int {
 	return s.list.Len()
 }
 
-func (s *stack) Push(val int) {
+func (s *Stack) Push(val int) {
 	s.list.PushBack(val)
 }
 
-func (s *stack) Pop() (val int, err error) {
+func (s *Stack) Pop() (val int, err error) {
 	if s.list.Len() == 0 {
 		return 0, errors.New("stack is empty")
 	}
