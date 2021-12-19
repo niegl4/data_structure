@@ -1,7 +1,7 @@
 package stack
 
 import (
-	"data_structure/queue"
+	"data_structure/common"
 	"errors"
 )
 
@@ -11,7 +11,7 @@ import (
 */
 
 type stackTmp struct {
-	queue1, queue2 *queue.Queue
+	queue1, queue2 *common.Queue
 }
 
 func (s *stackTmp) push(val int) error {
@@ -19,7 +19,7 @@ func (s *stackTmp) push(val int) error {
 		return errors.New("need init stack pointer")
 	}
 	if s.queue1 == nil {
-		s.queue1 = queue.NewQueue()
+		s.queue1 = common.NewQueue()
 	}
 	s.queue1.In(val)
 	return nil
@@ -30,10 +30,10 @@ func (s *stackTmp) pop() (int, error) {
 		return 0, errors.New("need init stack pointer")
 	}
 	if s.queue1 == nil {
-		s.queue1 = queue.NewQueue()
+		s.queue1 = common.NewQueue()
 	}
 	if s.queue2 == nil {
-		s.queue2 = queue.NewQueue()
+		s.queue2 = common.NewQueue()
 	}
 
 	if s.queue1.Len() == 0 && s.queue2.Len() == 0 {

@@ -1,9 +1,20 @@
-package stack
+package common
 
 import (
 	"container/list"
 	"testing"
 )
+
+func TestQueue(t *testing.T) {
+	q := NewQueue()
+	q.In(1)
+	q.In(2)
+	q.In(3)
+	t.Log(q.Out())
+	t.Log(q.Out())
+	t.Log(q.Out())
+	t.Log(q.Out())
+}
 
 func TestStack(t *testing.T) {
 	arr := []int{1, 2, 3, 4, 5}

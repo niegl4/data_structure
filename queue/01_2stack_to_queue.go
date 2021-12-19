@@ -1,7 +1,7 @@
 package queue
 
 import (
-	"data_structure/stack"
+	"data_structure/common"
 	"errors"
 )
 
@@ -11,7 +11,7 @@ import (
 */
 
 type queueTmp struct {
-	stack1, stack2 *stack.Stack
+	stack1, stack2 *common.Stack
 }
 
 func (q *queueTmp) in(val int) error {
@@ -19,7 +19,7 @@ func (q *queueTmp) in(val int) error {
 		return errors.New("need init queue pointer")
 	}
 	if q.stack1 == nil {
-		q.stack1 = stack.NewStack()
+		q.stack1 = common.NewStack()
 	}
 
 	q.stack1.Push(val)
@@ -31,10 +31,10 @@ func (q *queueTmp) out() (int, error) {
 		return 0, errors.New("need init queue pointer")
 	}
 	if q.stack1 == nil {
-		q.stack1 = stack.NewStack()
+		q.stack1 = common.NewStack()
 	}
 	if q.stack2 == nil {
-		q.stack2 = stack.NewStack()
+		q.stack2 = common.NewStack()
 	}
 
 	if q.stack1.Len()+q.stack2.Len() == 0 {

@@ -1,7 +1,7 @@
 package _1_single_linked_list
 
 import (
-	stack2 "data_structure/stack"
+	stack2 "data_structure/common"
 	"fmt"
 )
 
