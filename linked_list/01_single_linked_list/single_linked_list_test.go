@@ -1,6 +1,9 @@
 package _1_single_linked_list
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 var (
 	l1 *ListNode
@@ -28,14 +31,66 @@ var (
 	node5 = &ListNode{value: 5, next: nil}
 )
 
-func TestPrintReverse(t *testing.T) {
+func genList(arr []int) (head *ListNode) {
+	var pre *ListNode
+	for idx, num := range arr {
+		node := &ListNode{value: num}
+		if idx == 0 {
+			head = node
+		}
+		if pre != nil {
+			pre.next = node
+			pre = node
+		} else {
+			pre = node
+		}
+	}
+	return head
+}
+
+func printList(head *ListNode) {
+	node := head
+	for node != nil {
+		fmt.Println(node.value)
+		node = node.next
+	}
+}
+
+func TestListNode_PrintReverse(t *testing.T) {
 	node1.next = node2
 	node2.next = node3
 	node3.next = node4
 	node4.next = node5
 
 	node1.PrintReverse()
-	l3.PrintReverse()
+	//l3.PrintReverse()
+}
+
+func TestListNode_DelNode(t *testing.T) {
+	headNode := genList([]int{1, 2, 3, 4, 5})
+	//printList(headNode)
+	err := headNode.DelNode(headNode)
+	if err != nil {
+		t.Fatal(err)
+	}
+	printList(headNode)
+
+	headNode = genList([]int{1})
+	//printList(headNode)
+	err = headNode.DelNode(headNode)
+	if err != nil {
+		t.Fatal(err)
+	}
+	printList(headNode)
+
+}
+
+func TestListNode_DelDupNode(t *testing.T) {
+	headNode := genList([]int{1, 1, 2, 3, 3, 4, 5, 5})
+	printList(headNode)
+	//node1.DelDupNode()
+	DelDupNode(&headNode)
+	printList(headNode)
 }
 
 func TestLinkedList_Reverse(t *testing.T) {

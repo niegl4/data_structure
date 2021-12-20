@@ -70,6 +70,9 @@ func (n *ListNode) PrintReverse() {
 在O(1)时间内删除单链表节点
  */
 func (n *ListNode) DelNode(node *ListNode) error {
+	if n == nil {
+		return errors.New("list is nil")
+	}
 	if node.next != nil { //node不是尾节点
 		node.value = node.next.value
 		node.next = node.next.next
@@ -88,6 +91,97 @@ func (n *ListNode) DelNode(node *ListNode) error {
 			} else {
 				pre.next = node.next
 				return nil
+			}
+		}
+	}
+}
+
+/*
+十八-2
+排序单链表中，删除重复节点
+如 1-2-3-3-4-4-5，删除后：1-2-5
+*/
+
+func DelDupNode(head **ListNode) {
+	if head == nil { //空链表
+		return
+	}
+	if (*head).next == nil { //只有一个节点，必不可能重复
+		return
+	}
+
+	var (
+		preNode *ListNode
+		node = *head
+	)
+	for node != nil {
+		nextNode := node.next
+		if nextNode != nil && node.value != nextNode.value { //node节点与next节点值不等：移动pre，node
+			preNode = node
+			node = nextNode
+			continue
+		}
+
+		//连续多个相等
+		val := node.value
+		toDelNode := node
+		for toDelNode != nil && toDelNode.value == val { //循环退出时：toDelNode指向离开连续相等区间的第一个节点
+			toDelNode = toDelNode.next
+		}
+
+		//连续区间出现在开头
+		if node == *head {//从头开始连续相等：链表头节点更换
+			node = toDelNode
+			*head = toDelNode
+		} else {//不是从头开始连续相等
+			if preNode != nil {
+				preNode.next = toDelNode
+				node = toDelNode
+			} else {
+				node = toDelNode
+			}
+		}
+	}
+}
+
+//todo:目前还没想到用方法实现，只能用函数
+func (n *ListNode) DelDupNode() {
+	if n == nil { //空链表
+		return
+	}
+	if n.next == nil { //只有一个节点，必不可能重复
+		return
+	}
+
+	var (
+		preNode *ListNode
+		node = n
+	)
+	for node != nil {
+		nextNode := node.next
+		if nextNode != nil && node.value != nextNode.value { //node节点与next节点值不等：移动pre，node
+			preNode = node
+			node = nextNode
+			continue
+		}
+
+		//连续多个相等
+		val := node.value
+		toDelNode := node
+		for toDelNode != nil && toDelNode.value == val { //循环退出时：toDelNode指向离开连续相等区间的第一个节点
+			toDelNode = toDelNode.next
+		}
+
+		//连续区间出现在开头
+		if node == n {//从头开始连续相等：链表头节点更换
+			node = toDelNode
+			n = toDelNode
+		} else {//不是从头开始连续相等
+			if preNode != nil {
+				preNode.next = toDelNode
+				node = toDelNode
+			} else {
+				node = toDelNode
 			}
 		}
 	}
