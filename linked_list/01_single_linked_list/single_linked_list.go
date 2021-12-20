@@ -2,6 +2,7 @@ package _1_single_linked_list
 
 import (
 	stack2 "data_structure/common"
+	"errors"
 	"fmt"
 )
 
@@ -42,14 +43,14 @@ func (l *LinkedList) format() (res []interface{}) {
 	return res
 }
 
-//-----------------------------------单链表从尾到头打印:借助栈实现
 /*
 六
 单链表从尾到头打印，不允许修改链表
 
+单链表从尾到头打印:借助栈实现
 时间复杂度O(n)，空间复杂度O(n)
  */
-func(n *ListNode) PrintReverse() {
+func (n *ListNode) PrintReverse() {
 	if n == nil {
 		return
 	}
@@ -63,6 +64,35 @@ func(n *ListNode) PrintReverse() {
 		fmt.Println(stack.Pop())
 	}
 }
+
+/*
+十八-1
+在O(1)时间内删除单链表节点
+ */
+func (n *ListNode) DelNode(node *ListNode) error {
+	if node.next != nil { //node不是尾节点
+		node.value = node.next.value
+		node.next = node.next.next
+		return nil
+	} else {
+		if n == node { //链表中只有1个节点
+			n = nil
+			return nil
+		} else { //链表中有多个节点
+			pre := n
+			for pre.next != nil && pre.next != node {
+				pre = pre.next
+			}
+			if pre.next == nil {
+				return errors.New("node not in list")
+			} else {
+				pre.next = node.next
+				return nil
+			}
+		}
+	}
+}
+
 
 //-----------------------------------单链表反转:pre，cur，next三个指针的步进
 //带头
