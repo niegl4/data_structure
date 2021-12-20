@@ -116,7 +116,10 @@ func DelDupNode(head **ListNode) {
 	)
 	for node != nil {
 		nextNode := node.next
-		if nextNode != nil && node.value != nextNode.value { //node节点与next节点值不等：移动pre，node
+		if nextNode == nil {
+			break
+		}
+		if node.value != nextNode.value { //node节点与next节点值不等：移动pre，node
 			preNode = node
 			node = nextNode
 			continue

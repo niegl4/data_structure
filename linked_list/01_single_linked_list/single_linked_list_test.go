@@ -86,11 +86,20 @@ func TestListNode_DelNode(t *testing.T) {
 }
 
 func TestListNode_DelDupNode(t *testing.T) {
-	headNode := genList([]int{1, 1, 2, 3, 3, 4, 5, 5})
-	printList(headNode)
-	//node1.DelDupNode()
-	DelDupNode(&headNode)
-	printList(headNode)
+	testSet := [][]int{
+		{1, 1, 2, 3, 3, 4, 5, 5},
+		{1, 1},
+		{1, 2, 2},
+		{1, 2, 2, 3},
+	}
+	for _, list := range testSet {
+		headNode := genList(list)
+		//printList(headNode)
+		//node1.DelDupNode()
+		DelDupNode(&headNode)
+		printList(headNode)
+		fmt.Println("-------")
+	}
 }
 
 func TestLinkedList_Reverse(t *testing.T) {
