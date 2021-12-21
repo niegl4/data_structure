@@ -56,52 +56,6 @@ func printList(head *ListNode) {
 	}
 }
 
-func TestListNode_PrintReverse(t *testing.T) {
-	node1.next = node2
-	node2.next = node3
-	node3.next = node4
-	node4.next = node5
-
-	node1.PrintReverse()
-	//l3.PrintReverse()
-}
-
-func TestListNode_DelNode(t *testing.T) {
-	headNode := genList([]int{1, 2, 3, 4, 5})
-	//printList(headNode)
-	err := headNode.DelNode(headNode)
-	if err != nil {
-		t.Fatal(err)
-	}
-	printList(headNode)
-
-	headNode = genList([]int{1})
-	//printList(headNode)
-	err = headNode.DelNode(headNode)
-	if err != nil {
-		t.Fatal(err)
-	}
-	printList(headNode)
-
-}
-
-func TestListNode_DelDupNode(t *testing.T) {
-	testSet := [][]int{
-		{1, 1, 2, 3, 3, 4, 5, 5},
-		{1, 1},
-		{1, 2, 2},
-		{1, 2, 2, 3},
-	}
-	for _, list := range testSet {
-		headNode := genList(list)
-		//printList(headNode)
-		//node1.DelDupNode()
-		DelDupNode(&headNode)
-		printList(headNode)
-		fmt.Println("-------")
-	}
-}
-
 func TestLinkedList_Reverse(t *testing.T) {
 	var (
 		l1 *LinkedList
@@ -139,8 +93,6 @@ func TestLinkedList_Reverse(t *testing.T) {
 	l4.Reverse()
 	t.Log(l4.format())
 }
-
-
 
 func TestListNode_Reverse(t *testing.T) {
 	t.Log(l1.Reverse().format())
