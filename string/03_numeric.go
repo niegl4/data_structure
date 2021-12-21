@@ -34,6 +34,9 @@ func isNumeric(str string) bool {
 	if strSli[idx] == '.' {
 		idx++
 
+		if idx >= idxMax {
+			return numeric1
+		}
 		numeric2, idx = scanUint(strSli, idx)
 		if !(numeric1 || numeric2) {
 			return false
@@ -44,6 +47,9 @@ func isNumeric(str string) bool {
 				if strSli[idx] == 'e' || strSli[idx] == 'E' {
 					idx++
 
+					if idx >= idxMax {
+						return false
+					}
 					numeric3, idx = scanInt(strSli, idx)
 				}
 			}
