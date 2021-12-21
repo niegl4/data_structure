@@ -4,38 +4,37 @@ package string
 五-1
 把字符串中的每个空格替换成%20
  */
-func replaceBlank(str *[]rune) {
-	if str == nil {
+func replaceBlank(str string) (newStr string) {
+	if str == "" {
 		return
 	}
 
 	blankNum := 0
-	for _, char := range *str {
+	oriSli := make([]rune, 0)
+	for _, char := range str {
 		if char == ' ' {
 			blankNum++
 		}
+		oriSli = append(oriSli, char)
 	}
 
-	oriIndex := len(*str) - 1
+	oriIndex := len(oriSli) - 1
 	newIndex := oriIndex + 2 * blankNum
-	//数组扩充
-	for i := 0; i < blankNum; i++ {
-		*str = append(*str, ' ', ' ')
-	}
+	newStrSli := make([]rune, newIndex+1)
 
 	for oriIndex >= 0 && newIndex >= oriIndex {
-		if (*str)[oriIndex] == ' ' {
-			(*str)[newIndex] = '0'
+		if oriSli[oriIndex] == ' ' {
+			newStrSli[newIndex] = '0'
 			newIndex--
-			(*str)[newIndex] = '2'
+			newStrSli[newIndex] = '2'
 			newIndex--
-			(*str)[newIndex] = '%'
+			newStrSli[newIndex] = '%'
 		} else {
-			(*str)[newIndex] = (*str)[oriIndex]
+			newStrSli[newIndex] = oriSli[oriIndex]
 		}
 		oriIndex--
 		newIndex--
 	}
 
-	return
+	return string(newStrSli)
 }
