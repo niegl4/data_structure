@@ -94,27 +94,4 @@ func TestLinkedList_Reverse(t *testing.T) {
 	t.Log(l4.format())
 }
 
-func TestListNode_Reverse(t *testing.T) {
-	t.Log(l1.Reverse().format())
-
-	t.Log(l2.Reverse().format())
-
-	t.Log(l3.Reverse().format())
-}
-
-func Test_HasCycle(t *testing.T) {
-	node1.next = node2
-	node2.next = node3
-	node3.next = node4
-	node4.next = node5
-	node5.next = node2
-	l := &LinkedList{head: &ListNode{next: node1}}
-	t.Log(l.HasCycle())
-	t.Log(node1.HasCycle())
-
-	node5.next = nil
-	t.Log(l.HasCycle())
-	t.Log(node1.HasCycle())
-}
-
 

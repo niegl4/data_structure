@@ -62,24 +62,6 @@ func (l *LinkedList) Reverse() {
 	l.head.next = pre
 }
 
-//不带头
-func (n *ListNode) Reverse() (head *ListNode) {
-	if n == nil || n.next == nil {
-		return n
-	}
-
-	pre := &ListNode{}
-	cur := n
-	for cur != nil {
-		next := cur.next
-
-		cur.next = pre
-		pre = cur
-		cur = next
-	}
-	return pre
-}
-
 //-----------------------------------判断单链表是否有环:快指针，步长为2；慢指针，步长为1；如果有环，它们一定会相遇
 //带头
 func (l *LinkedList) HasCycle() bool {
@@ -89,24 +71,6 @@ func (l *LinkedList) HasCycle() bool {
 
 	slow := l.head
 	fast := l.head
-	for fast != nil && fast.next != nil {
-		slow = slow.next
-		fast = fast.next.next
-		if slow == fast {
-			return true
-		}
-	}
-	return false
-}
-
-//不带头
-func (n *ListNode) HasCycle() bool {
-	if n == nil {
-		return false
-	}
-
-	slow := n
-	fast := n
 	for fast != nil && fast.next != nil {
 		slow = slow.next
 		fast = fast.next.next
@@ -149,8 +113,6 @@ func (l *LinkedList)MergeSortedList(newList *LinkedList) *LinkedList {
 	}
 	return retList
 }
-
-
 
 //-----------------------------------获取中间节点：快指针，步长为2；慢指针，步长为1；快指针为nil或者快指针的next为nil，慢指针就是中间节点。
 //带头
