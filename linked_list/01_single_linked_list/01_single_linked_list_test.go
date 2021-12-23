@@ -50,10 +50,12 @@ func genList(arr []int) (head *ListNode) {
 
 func printList(head *ListNode) {
 	node := head
+	result := make([]interface{}, 0)
 	for node != nil {
-		fmt.Println(node.value)
+		result = append(result, node.value)
 		node = node.next
 	}
+	fmt.Println(result)
 }
 
 func TestLinkedList_Reverse(t *testing.T) {
