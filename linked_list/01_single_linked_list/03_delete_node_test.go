@@ -53,3 +53,10 @@ func TestDelDupNode(t *testing.T) {
 		fmt.Println("-------")
 	}
 }
+
+func TestMidNodeOfList(t *testing.T) {
+	l1 := genList([]int{1, 2, 3})
+	l2 := genList([]int{1, 2, 3, 4})
+	t.Log(midNodeOfList(l1).value)
+	t.Log(midNodeOfList(l2).value)
+}

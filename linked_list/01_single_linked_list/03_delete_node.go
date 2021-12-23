@@ -155,3 +155,21 @@ func (n *ListNode) DelDupNode() {
 		}
 	}
 }
+
+/*
+十八-3
+求链表的中间节点
+如 1-2-3，返回2；1-2-3-4，返回2
+*/
+func midNodeOfList(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+	slow := head
+	fast := head.next
+	for fast != nil && fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+	}
+	return slow
+}
