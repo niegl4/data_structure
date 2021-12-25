@@ -1,9 +1,5 @@
 package _1_bi_tree
 
-import (
-	"fmt"
-)
-
 var (
 	/*
 		       A
@@ -32,10 +28,6 @@ type BiTree struct {
 	Data   interface{}
 	lChild *BiTree
 	rChild *BiTree
-}
-
-func (bi *BiTree) Operate(data interface{}) {
-	fmt.Println(data)
 }
 
 // PreOrderTraverse 二叉树的前序遍历
