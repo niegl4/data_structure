@@ -2,6 +2,7 @@ package _1_bi_tree
 
 /*
 三十四
+***
 输入一棵二叉树和一个整数，返回二叉树中节点值的和为该整数的所有路径。
 */
 func findPath(root *BiTree, expectNum int) [][]*BiTree {
