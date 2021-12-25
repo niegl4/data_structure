@@ -1,7 +1,6 @@
 package _3_r_b_tree
 
 import (
-	"data_structure/tree/common"
 	"fmt"
 	"strings"
 )
@@ -101,7 +100,7 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 			//这时，它就是删除操作中的2阶段调整。
 			trackNode := &TreeNode{
 				parent: node.parent,
-				color: "black+black",
+				color:  "black+black",
 			}
 			if node.parent.lchild == node {
 				node.parent.lchild = trackNode
@@ -163,16 +162,16 @@ func (rbt *RBTree) DeleteByMe(data float64) {
 		return
 
 	/*
-	stage1:删除节点，保持黑色平衡，临时引入两个颜色的节点
-		（在node的lchild和rchild都不是nil的大前提下，它一定有后继）
-		1.后继就是右子节点，进入stage2
-		2.后继不是右子节点，进入stage2
-	stage2:去除两个颜色的节点
-		1.traceNode的兄弟节点是红色，调整；继续进行stage2的判断
-		2.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子黑，调整；继续进行stage2的判断
-		3.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子红，调整；进入4
-		4.traceNode的兄弟节点是黑色，兄弟节点的右孩子红，调整；结束
-	 */
+		stage1:删除节点，保持黑色平衡，临时引入两个颜色的节点
+			（在node的lchild和rchild都不是nil的大前提下，它一定有后继）
+			1.后继就是右子节点，进入stage2
+			2.后继不是右子节点，进入stage2
+		stage2:去除两个颜色的节点
+			1.traceNode的兄弟节点是红色，调整；继续进行stage2的判断
+			2.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子黑，调整；继续进行stage2的判断
+			3.traceNode的兄弟节点是黑色，兄弟节点的右孩子黑，左孩子红，调整；进入4
+			4.traceNode的兄弟节点是黑色，兄弟节点的右孩子红，调整；结束
+	*/
 	case node.lchild != nil && node.rchild != nil:
 		traceNode := rbt.deleteStage1(node)
 		if traceNode == nil {
@@ -192,7 +191,7 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 
 	//（在node的lchild和rchild都不是nil的大前提下，它一定有后继）
 	successorNode := rbt.GetSuccessor(node.data)
-	oriColor := successorNode.color //保存后继节点原来的颜色
+	oriColor := successorNode.color  //保存后继节点原来的颜色
 	successorNode.color = node.color //后继节点的颜色与node一样
 
 	//1.后继就是右子节点
@@ -225,7 +224,7 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 			if successorNode.rchild == nil {
 				successorNode.rchild = &TreeNode{
 					parent: successorNode,
-					color: "black",
+					color:  "black",
 				}
 			}
 			successorNode.rchild.color += "+black"
@@ -233,7 +232,7 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 			traceNode = successorNode.rchild
 			return traceNode
 		}
-	} else {  //2.后继不是右子节点
+	} else { //2.后继不是右子节点
 		successorNodeParent := successorNode.parent
 		successorNodeRChild := successorNode.rchild
 		//后继节点与被删除节点的父节点。其中要特殊考虑：被删除节点就是root
@@ -259,7 +258,7 @@ func (rbt *RBTree) deleteStage1(node *TreeNode) (traceNode *TreeNode) {
 		successorNode.rchild = node.rchild
 
 		//后继节点的初始颜色是黑色时，进行特殊标记
-		if oriColor == "red" {//红色时，后继原来的父的左孩子，指向后继原来的右孩子，也就是nil（红色后继节点，它的右孩子必然是nil）
+		if oriColor == "red" { //红色时，后继原来的父的左孩子，指向后继原来的右孩子，也就是nil（红色后继节点，它的右孩子必然是nil）
 			successorNodeParent.lchild = nil
 			return nil
 		} else {
@@ -285,78 +284,78 @@ func (rbt *RBTree) deleteStage2(traceNode *TreeNode) {
 	for traceNode != rbt.root && strings.Contains(traceNode.color, "+black") {
 		if traceNode.parent.lchild == traceNode && traceNode.parent.rchild != nil {
 			brother = traceNode.parent.rchild
-			lCase1to4:
-				for {
-					switch {
-					case brother.color == "red":
-						brother.color = "black"
-						traceNode.parent.color = "red"
-						rbt.LeftRotate(traceNode.parent)
-					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "black":
-						pre := traceNode
-						brother.color = "red"
-						pre.color = strings.Split(pre.color, "+")[0]
-						traceNode = traceNode.parent
-						traceNode.color += "+black"
-						if pre.color == "black" { //之前的traceNode为black+black的时候，说明它是一个nil节点
-							traceNode.lchild = nil
-						}
-						//traceNode变更，要重新找brother，所以break内层for循环
-						break lCase1to4
-					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "red" && brother.rchild != nil && brother.rchild.color == "black":
-						brother.color = "red"
-						brother.lchild.color = "black"
-						rbt.RightRotate(brother)
-						fallthrough
-					case brother.color == "black" && brother.rchild != nil && brother.rchild.color == "red":
-						brother.color = traceNode.parent.color
-						brother.parent.color = "black"
-						brother.rchild.color = "black"
-						traceNode.color = strings.Split(traceNode.color, "+")[0]
-						rbt.LeftRotate(brother.parent)
-						if traceNode.color == "black" {
-							traceNode.parent.lchild = nil
-						}
-						return
+		lCase1to4:
+			for {
+				switch {
+				case brother.color == "red":
+					brother.color = "black"
+					traceNode.parent.color = "red"
+					rbt.LeftRotate(traceNode.parent)
+				case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "black":
+					pre := traceNode
+					brother.color = "red"
+					pre.color = strings.Split(pre.color, "+")[0]
+					traceNode = traceNode.parent
+					traceNode.color += "+black"
+					if pre.color == "black" { //之前的traceNode为black+black的时候，说明它是一个nil节点
+						traceNode.lchild = nil
 					}
+					//traceNode变更，要重新找brother，所以break内层for循环
+					break lCase1to4
+				case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "red" && brother.rchild != nil && brother.rchild.color == "black":
+					brother.color = "red"
+					brother.lchild.color = "black"
+					rbt.RightRotate(brother)
+					fallthrough
+				case brother.color == "black" && brother.rchild != nil && brother.rchild.color == "red":
+					brother.color = traceNode.parent.color
+					brother.parent.color = "black"
+					brother.rchild.color = "black"
+					traceNode.color = strings.Split(traceNode.color, "+")[0]
+					rbt.LeftRotate(brother.parent)
+					if traceNode.color == "black" {
+						traceNode.parent.lchild = nil
+					}
+					return
 				}
+			}
 		} else if traceNode.parent.rchild == traceNode && traceNode.parent.lchild != nil {
 			brother = traceNode.parent.lchild
-			rCase1to4:
-				for {
-					switch {
-					case brother.color == "red":
-						brother.color = "black"
-						traceNode.parent.color = "red"
-						rbt.RightRotate(traceNode.parent)
-					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "black":
-						pre := traceNode
-						brother.color = "red"
-						pre.color = strings.Split(pre.color, "+")[0]
-						traceNode = traceNode.parent
-						traceNode.color += "+black"
-						if pre.color == "black" {
-							traceNode.rchild = nil
-						}
-						//traceNode变更，要重新找brother，所以break内层for循环
-						break rCase1to4
-					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "red":
-						brother.color = "red"
-						brother.rchild.color = "black"
-						rbt.LeftRotate(brother)
-						fallthrough
-					case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "red":
-						brother.color = traceNode.parent.color
-						brother.parent.color = "black"
-						brother.lchild.color = "black"
-						traceNode.color = strings.Split(traceNode.color, "+")[0]
-						rbt.RightRotate(brother.parent)
-						if traceNode.color == "black" {
-							traceNode.parent.rchild = nil
-						}
-						return
+		rCase1to4:
+			for {
+				switch {
+				case brother.color == "red":
+					brother.color = "black"
+					traceNode.parent.color = "red"
+					rbt.RightRotate(traceNode.parent)
+				case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "black":
+					pre := traceNode
+					brother.color = "red"
+					pre.color = strings.Split(pre.color, "+")[0]
+					traceNode = traceNode.parent
+					traceNode.color += "+black"
+					if pre.color == "black" {
+						traceNode.rchild = nil
 					}
+					//traceNode变更，要重新找brother，所以break内层for循环
+					break rCase1to4
+				case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "black" && brother.rchild != nil && brother.rchild.color == "red":
+					brother.color = "red"
+					brother.rchild.color = "black"
+					rbt.LeftRotate(brother)
+					fallthrough
+				case brother.color == "black" && brother.lchild != nil && brother.lchild.color == "red":
+					brother.color = traceNode.parent.color
+					brother.parent.color = "black"
+					brother.lchild.color = "black"
+					traceNode.color = strings.Split(traceNode.color, "+")[0]
+					rbt.RightRotate(brother.parent)
+					if traceNode.color == "black" {
+						traceNode.parent.rchild = nil
+					}
+					return
 				}
+			}
 		} else {
 			return
 		}
@@ -643,19 +642,20 @@ func (rbt RBTree) IsEmpty() bool {
 	return false
 }
 
-func (rbt RBTree) InOrderTravel(op common.Operate) {
-	var inOrderTravel func(node *TreeNode)
+func (rbt RBTree) InOrderTravel() (res []string) {
+	var inOrderTravel func(node *TreeNode) (res []string)
 
-	inOrderTravel = func(node *TreeNode) {
-		if node != nil {
-			inOrderTravel(node.lchild)
-			op(fmt.Sprintf("%f, %s", node.data, node.color))
-			//fmt.Printf("%g ", node.data)
-			inOrderTravel(node.rchild)
+	inOrderTravel = func(node *TreeNode) (res []string) {
+		if node == nil {
+			return res
 		}
+		res = append(res, inOrderTravel(node.lchild)...)
+		res = append(res, fmt.Sprintf("{%f, %s}", node.data, node.color))
+		res = append(res, inOrderTravel(node.rchild)...)
+		return res
 	}
 
-	inOrderTravel(rbt.root)
+	return inOrderTravel(rbt.root)
 }
 
 //寻找指定节点

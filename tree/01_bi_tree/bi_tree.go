@@ -1,17 +1,16 @@
 package _1_bi_tree
 
 import (
-	"data_structure/tree/common"
 	"fmt"
 )
 
 var (
 	/*
-	       A
-	   B       C
-	 D   E   F   G
-	H I J K L M N O
-	 */
+		       A
+		   B       C
+		 D   E   F   G
+		H I J K L M N O
+	*/
 	BiTreeLeaf1 = BiTree{Data: "H"}
 	BiTreeLeaf2 = BiTree{Data: "I"}
 	BiTreeLeaf3 = BiTree{Data: "J"}
@@ -39,42 +38,45 @@ func (bi *BiTree) Operate(data interface{}) {
 	fmt.Println(data)
 }
 
-// 二叉树的前序遍历
-func (bi *BiTree) PreOrderTraverse(op common.Operate) {
+// PreOrderTraverse 二叉树的前序遍历
+func (bi *BiTree) PreOrderTraverse() (res []interface{}) {
 	if bi == nil {
 		return
 	}
-	op(bi.Data)
-	bi.lChild.PreOrderTraverse(op)
-	bi.rChild.PreOrderTraverse(op)
+	res = append(res, bi.Data)
+	res = append(res, bi.lChild.PreOrderTraverse()...)
+	res = append(res, bi.rChild.PreOrderTraverse()...)
+	return res
 }
 
-// 二叉树的中序遍历
-func (bi *BiTree) InOrderTraverse(op common.Operate) {
+// InOrderTraverse 二叉树的中序遍历
+func (bi *BiTree) InOrderTraverse() (res []interface{}) {
 	if bi == nil {
 		return
 	}
-	bi.lChild.InOrderTraverse(op)
-	op(bi.Data)
-	bi.rChild.InOrderTraverse(op)
+	res = append(res, bi.lChild.InOrderTraverse()...)
+	res = append(res, bi.Data)
+	res = append(res, bi.rChild.InOrderTraverse()...)
+	return res
 }
 
-// 二叉树的后序遍历
-func (bi *BiTree) PostOrderTraverse(op common.Operate) {
+// PostOrderTraverse 二叉树的后序遍历
+func (bi *BiTree) PostOrderTraverse() (res []interface{}) {
 	if bi == nil {
 		return
 	}
-	bi.lChild.PostOrderTraverse(op)
-	bi.rChild.PostOrderTraverse(op)
-	op(bi.Data)
+	res = append(res, bi.lChild.PostOrderTraverse()...)
+	res = append(res, bi.rChild.PostOrderTraverse()...)
+	res = append(res, bi.Data)
+	return res
 }
 
-// 二叉树的层序遍历
-func (bi *BiTree) LevelOrderTraverse(op common.Operate) {
+// LevelOrderTraverse 二叉树的层序遍历
+func (bi *BiTree) LevelOrderTraverse() (res [][]interface{}) {
 	if bi == nil {
 		return
 	}
-	levelSet := make([][]interface{}, 0)
+	res = make([][]interface{}, 0)
 	queue := []*BiTree{bi}
 	for len(queue) > 0 {
 		//[当前]队列长度，在队列中插入数据前计算一次，内层循环入队的元素不影响n
@@ -92,9 +94,9 @@ func (bi *BiTree) LevelOrderTraverse(op common.Operate) {
 			//2.本节点的值入本层结果
 			level = append(level, queue[i].Data)
 		}
-		levelSet = append(levelSet, level)
+		res = append(res, level)
 		//queue截取掉本层
 		queue = queue[n:]
 	}
-	op(levelSet)
+	return res
 }

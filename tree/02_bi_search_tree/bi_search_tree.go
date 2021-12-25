@@ -1,9 +1,5 @@
 package _2_bi_search_tree
 
-import (
-	"data_structure/tree/common"
-)
-
 type TreeNode struct {
 	data   float64
 	lChild *TreeNode
@@ -97,7 +93,7 @@ func (bit *BiSTree) Delete(data float64) {
 
 	case node.lChild != nil && node.rChild != nil:
 		successorNode := bit.GetSuccessor(data)
-		if node.rChild == successorNode {//后继节点就是node.rChild
+		if node.rChild == successorNode { //后继节点就是node.rChild
 			if node.parent == nil {
 				successorNode.parent = nil
 				bit.root = successorNode
@@ -113,7 +109,7 @@ func (bit *BiSTree) Delete(data float64) {
 			successorNode.lChild = node.lChild
 			node.lChild.parent = successorNode
 
-		} else {//后继节点不是node.rChild
+		} else { //后继节点不是node.rChild
 			successorNodeParent := successorNode.parent
 			successorNodeRChild := successorNode.rChild
 
@@ -194,18 +190,19 @@ func (bit *BiSTree) GetSuccessor(data float64) *TreeNode {
 	}
 }
 
-func (bit *BiSTree) InOrderTravel(op common.Operate) {
-	var inOrderTravel func(node *TreeNode)
-	inOrderTravel = func(node *TreeNode) {
+func (bit *BiSTree) InOrderTravel() (res []interface{}) {
+	var inOrderTravel func(node *TreeNode) (res []interface{})
+	inOrderTravel = func(node *TreeNode) (res []interface{}) {
 		if node == nil {
-			return
+			return res
 		}
-		inOrderTravel(node.lChild)
-		op(node.data)
-		inOrderTravel(node.rChild)
+		res = append(res, inOrderTravel(node.lChild)...)
+		res = append(res, node.data)
+		res = append(res, inOrderTravel(node.rChild))
+		return res
 	}
 
-	inOrderTravel(bit.root)
+	return inOrderTravel(bit.root)
 }
 
 func (bit BiSTree) IsEmpty() bool {

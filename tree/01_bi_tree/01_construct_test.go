@@ -1,7 +1,6 @@
 package _1_bi_tree
 
 import (
-	"data_structure/tree/common"
 	"testing"
 )
 
@@ -10,18 +9,16 @@ func TestConstruct(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	tmp := make([]interface{}, 0, 16)
-	var biTestOp common.Operate = func(data interface{}) () {
-		tmp = append(tmp, data)
-	}
-	root.PreOrderTraverse(biTestOp)
+
+	tmp := root.PreOrderTraverse()
 	t.Log(tmp)
 
-	tmp = tmp[0:0]
-	root.InOrderTraverse(biTestOp)
+	tmp = root.InOrderTraverse()
 	t.Log(tmp)
 
-	tmp = tmp[0:0]
-	root.PostOrderTraverse(biTestOp)
+	tmp = root.PostOrderTraverse()
 	t.Log(tmp)
+
+	levelRes := root.LevelOrderTraverse()
+	t.Log(levelRes)
 }

@@ -1,7 +1,6 @@
 package _1_bi_tree
 
 import (
-	"data_structure/tree/common"
 	"errors"
 )
 
@@ -9,7 +8,8 @@ import (
 八
 给定二叉树和其中一个节点，找到该节点在中序遍历序列的后继节点。
 数中节点有指向父节点的指针。
- */
+*/
+
 type BiTreeWithP struct {
 	Data   interface{}
 	lChild *BiTreeWithP
@@ -62,7 +62,7 @@ func constructTmp(preOrder, inOrder []int) (*BiTreeWithP, error) {
 
 func constructCoreTmp(preOrder []int, preStart, preEnd int, inOrder []int, inStart, inEnd int) (*BiTreeWithP, error) {
 	node := &BiTreeWithP{
-		Data:   preOrder[preStart],
+		Data: preOrder[preStart],
 	}
 	if preEnd == preStart && inEnd == inStart {
 		if preOrder[preStart] == inOrder[inStart] {
@@ -83,7 +83,7 @@ func constructCoreTmp(preOrder []int, preStart, preEnd int, inOrder []int, inSta
 	if inOrderIndex > inEnd {
 		return nil, errors.New("input invalid")
 	}
-	leftLen := inOrderIndex-inStart
+	leftLen := inOrderIndex - inStart
 	rightLen := inEnd - inOrderIndex
 	if leftLen > 0 {
 		left, err := constructCoreTmp(preOrder, preStart+1, preStart+leftLen,
@@ -108,32 +108,35 @@ func constructCoreTmp(preOrder []int, preStart, preEnd int, inOrder []int, inSta
 	return node, nil
 }
 
-// 二叉树的前序遍历
-func (bi *BiTreeWithP) PreOrderTraverse(op common.Operate) {
+// PreOrderTraverse 二叉树的前序遍历
+func (bi *BiTreeWithP) PreOrderTraverse() (res []interface{}) {
 	if bi == nil {
 		return
 	}
-	op(bi.Data)
-	bi.lChild.PreOrderTraverse(op)
-	bi.rChild.PreOrderTraverse(op)
+	res = append(res, bi.Data)
+	res = append(res, bi.lChild.PreOrderTraverse()...)
+	res = append(res, bi.rChild.PreOrderTraverse()...)
+	return res
 }
 
-// 二叉树的中序遍历
-func (bi *BiTreeWithP) InOrderTraverse(op common.Operate) {
+// InOrderTraverse 二叉树的中序遍历
+func (bi *BiTreeWithP) InOrderTraverse() (res []interface{}) {
 	if bi == nil {
 		return
 	}
-	bi.lChild.InOrderTraverse(op)
-	op(bi.Data)
-	bi.rChild.InOrderTraverse(op)
+	res = append(res, bi.lChild.InOrderTraverse()...)
+	res = append(res, bi.Data)
+	res = append(res, bi.rChild.InOrderTraverse()...)
+	return res
 }
 
-// 二叉树的后序遍历
-func (bi *BiTreeWithP) PostOrderTraverse(op common.Operate) {
+// PostOrderTraverse 二叉树的后序遍历
+func (bi *BiTreeWithP) PostOrderTraverse() (res []interface{}) {
 	if bi == nil {
 		return
 	}
-	bi.lChild.PostOrderTraverse(op)
-	bi.rChild.PostOrderTraverse(op)
-	op(bi.Data)
+	res = append(res, bi.lChild.PostOrderTraverse()...)
+	res = append(res, bi.rChild.PostOrderTraverse()...)
+	res = append(res, bi.Data)
+	return res
 }
