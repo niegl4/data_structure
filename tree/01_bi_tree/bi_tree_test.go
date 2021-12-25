@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestBiTree_PreOrderTraverse(t *testing.T) {
+func TestBiTree_OrderTraverse(t *testing.T) {
 	t.Log("BiTree 前序遍历")
 	tmp := BiTreeRoot.PreOrderTraverse()
 	t.Logf("%v", tmp)
