@@ -2,6 +2,7 @@ package array
 
 import (
 	"container/heap"
+	"data_structure/common"
 	"errors"
 )
 
@@ -26,7 +27,7 @@ func topK(arr []int, k int) ([]int, error) {
 		return arr, nil
 	}
 
-	var maxH maxHeap
+	var maxH common.MaxHeap
 	for idx, num := range arr {
 		if idx < k {
 			maxH.Push(num)
@@ -43,26 +44,4 @@ func topK(arr []int, k int) ([]int, error) {
 		}
 	}
 	return maxH, nil
-}
-
-type maxHeap []int
-
-func (m *maxHeap) Len() int { return len(*m) }
-
-func (m *maxHeap) Less(i, j int) bool {
-	return (*m)[i] >= (*m)[j]
-}
-
-func (m *maxHeap) Swap(i, j int) {
-	(*m)[i], (*m)[j] = (*m)[j], (*m)[i]
-	return
-}
-
-func (m *maxHeap) Push(data interface{}) {
-	*m = append(*m, data.(int))
-}
-
-func (m *maxHeap) Pop() (v interface{}) {
-	*m, v = (*m)[:m.Len()-1], (*m)[m.Len()-1]
-	return
 }
