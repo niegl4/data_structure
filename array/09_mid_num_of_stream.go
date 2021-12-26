@@ -63,7 +63,7 @@ func calMidNum(numberStream <-chan int) {
 			}
 			fmt.Printf("idx: %d, midNum:%d\n", i, (num1+num2)/2)
 		}
-		if i == 7 {
+		if i == 7 { //为了测试通过，临时这么写。正常的流，不用这么处理。
 			break
 		}
 		i++
