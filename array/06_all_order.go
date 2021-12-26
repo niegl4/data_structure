@@ -85,6 +85,7 @@ func numsOfQueens(nxn int) (res [][]int) {
 		return nil
 	}
 
+	//已有的全排列，是对string对象。为了能调用它，临时生成"0"，"1"这样的string。
 	matrix := make([]string, nxn)
 	for i := 0; i < nxn; i++ {
 		matrix[i] = strconv.Itoa(i)
