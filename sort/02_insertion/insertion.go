@@ -2,12 +2,12 @@ package _2_insertion
 
 //不断将一个记录插入到前面已经排好序的有序列表中
 func InsertSort(arr []int) {
-	n := len(arr)
-	if n <= 1 {
+	length := len(arr)
+	if length <= 1 {
 		return
 	}
 
-	for i := 0; i <= n-2; i++ { //要拿i与i+1比较，所以i只能到倒数第2。倒数第2，就是n-2.
+	for i := 0; i <= length-2; i++ { //要拿i与i+1比较，所以i只能到倒数第2。倒数第2，就是n-2.
 		//当前>后一个，再进入循环
 		if arr[i] > arr[i+1] {
 			//记录这个最新出现的小元素

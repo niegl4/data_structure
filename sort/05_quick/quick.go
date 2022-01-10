@@ -3,11 +3,12 @@ package _5_quick
 //边切分，边确保大致有序（左边小于中间元素，右边大于中间元素）
 //最后从最小的单位逐级返回，每次返回都是有序的
 //原地排序版快排，即空间复杂度是O(1)
-func QuickSort(arr []int, n int) {
-	if len(arr) <= 1 || n <= 1 {
+func QuickSort(arr []int) {
+	length := len(arr)
+	if length <= 1 {
 		return
 	}
-	quickSort(arr, 0, n-1)
+	quickSort(arr, 0, length-1)
 	return
 }
 
