@@ -14,7 +14,7 @@ type queueTmp struct {
 	stack1, stack2 *common.Stack
 }
 
-func (q *queueTmp) in(val int) error {
+func (q *queueTmp) enqueue(val int) error {
 	if q == nil {
 		return errors.New("need init queue pointer")
 	}
@@ -26,7 +26,7 @@ func (q *queueTmp) in(val int) error {
 	return nil
 }
 
-func (q *queueTmp) out() (int, error) {
+func (q *queueTmp) dequeue() (int, error) {
 	if q == nil {
 		return 0, errors.New("need init queue pointer")
 	}

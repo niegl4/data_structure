@@ -10,7 +10,7 @@ A[.[B]][e|EC]
 A:整数部分，以+或-开头的0~9的数位串；可以有符号，也可以没有符号。
 B:小数部分，0~9的数位串；不能有符号。
 C:指数部分，以+或-开头的0~9的数位串；可以有符号，也可以没有符号。
- */
+*/
 func isNumeric(str string) bool {
 	if str == "" {
 		return false
@@ -22,8 +22,8 @@ func isNumeric(str string) bool {
 
 	var (
 		numeric1, numeric2, numeric3 bool
-		idx int
-		idxMax = len(strSli)
+		idx                          int
+		idxMax                       = len(strSli)
 	)
 
 	numeric1, idx = scanInt(strSli, 0)
@@ -92,4 +92,3 @@ func scanInt(strSli []rune, idx int) (bool, int) {
 	}
 	return scanUint(strSli, idx)
 }
-

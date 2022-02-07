@@ -3,7 +3,7 @@ package _1_single_linked_list
 /*
 二十四
 反转单链表
- */
+*/
 
 func reverse(head *ListNode) *ListNode {
 	if head == nil {
@@ -14,8 +14,8 @@ func reverse(head *ListNode) *ListNode {
 	}
 
 	var (
-		pre, next  *ListNode
-		node = head
+		pre, next *ListNode
+		node      = head
 	)
 	for node.next != nil {
 		next = node.next

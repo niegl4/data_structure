@@ -3,7 +3,7 @@ package string
 /*
 十九
 实现一个函数，用来匹配包含.和*的正则表达式。.表示任意一个字符；*表示它前面的字符可以出现任意次（包括0）。
- */
+*/
 func match(str, pattern string) bool {
 	if str == "" || pattern == "" {
 		return false
@@ -36,7 +36,7 @@ func matchCore(str, pat []rune, strIdx, strMaxIdx, patIdx, patMaxIdx int) bool {
 	//str末尾，pat不是末尾，不确定：“a”,"a*"。strIdx == strMaxIdx+1
 	//str不是末尾，pat不是末尾，不确定。
 	if patIdx < patMaxIdx && pat[patIdx+1] == '*' {
-		if strIdx < strMaxIdx+1 && (pat[patIdx] == str[strIdx] ||  pat[patIdx] == '.') {
+		if strIdx < strMaxIdx+1 && (pat[patIdx] == str[strIdx] || pat[patIdx] == '.') {
 			return matchCore(str, pat, strIdx+1, strMaxIdx, patIdx+2, patMaxIdx) || //a【.】..	a*【.】..
 				matchCore(str, pat, strIdx+1, strMaxIdx, patIdx, patMaxIdx) || //a【.】.. 	【a】...
 				matchCore(str, pat, strIdx, strMaxIdx, patIdx+2, patMaxIdx) // 【a】... 		a*【.】..

@@ -4,7 +4,7 @@ package _4_merge
 //最后从最小的单位逐级返回，每次返回都是有序的
 func MergeSort(arr []int) {
 	length := len(arr)
-	if length <=1 {
+	if length <= 1 {
 		return
 	}
 	mergeSort(arr, 0, length-1)
@@ -21,8 +21,8 @@ func mergeSort(arr []int, p, r int) {
 }
 
 func merge(arr []int, p, q, r int) {
-	i := p //左区间索引
-	j := q + 1 //右区间索引
+	i := p                       //左区间索引
+	j := q + 1                   //右区间索引
 	tmp := make([]int, 0, r-p+1) //临时数组，就是因为它，导致空间复杂度O(n)
 	//合并两个有序数组
 	for i <= q && j <= r {

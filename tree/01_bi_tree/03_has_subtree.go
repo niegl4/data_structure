@@ -3,7 +3,7 @@ package _1_bi_tree
 /*
 二十六
 判断树2是不是树1的子结构
- */
+*/
 func tree1HasTree2(root1, root2 *BiTree) bool {
 	if root1 == nil || root2 == nil {
 		return false

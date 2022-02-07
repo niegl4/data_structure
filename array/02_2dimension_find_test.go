@@ -2,7 +2,7 @@ package array
 
 import "testing"
 
-func TestFind(t *testing.T)  {
+func TestFind(t *testing.T) {
 	matrix := [][]int{
 		{1, 2, 8, 9},
 		{2, 4, 9, 12},

@@ -3,7 +3,7 @@ package string
 /*
 五-1
 把字符串中的每个空格替换成%20
- */
+*/
 func replaceBlank(str string) (newStr string) {
 	if str == "" {
 		return
@@ -19,7 +19,7 @@ func replaceBlank(str string) (newStr string) {
 	}
 
 	oriIndex := len(oriSli) - 1
-	newIndex := oriIndex + 2 * blankNum
+	newIndex := oriIndex + 2*blankNum
 	newStrSli := make([]rune, newIndex+1)
 
 	for oriIndex >= 0 && newIndex >= oriIndex {

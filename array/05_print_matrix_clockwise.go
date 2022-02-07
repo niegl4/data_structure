@@ -18,7 +18,7 @@ func printMatrixClockwise(matrix [][]int) {
 		}
 	}
 	start := 0
-	for rows > start * 2 && columns > start * 2 {
+	for rows > start*2 && columns > start*2 {
 		printMatrixInCircle(matrix, start, rows, columns)
 		start++
 	}
@@ -38,7 +38,7 @@ func printMatrixInCircle(matrix [][]int, start, rows, columns int) {
 	tmp = tmp[0:0]
 
 	if iEnd > start {
-		for i := start+1; i <= iEnd; i++ {
+		for i := start + 1; i <= iEnd; i++ {
 			tmp = append(tmp, matrix[i][jEnd])
 		}
 	}
@@ -47,8 +47,8 @@ func printMatrixInCircle(matrix [][]int, start, rows, columns int) {
 	}
 	tmp = tmp[0:0]
 
-	if jEnd - start >= 1 && iEnd - start >= 1 {
-		for j := jEnd-1; j >= start; j-- {
+	if jEnd-start >= 1 && iEnd-start >= 1 {
+		for j := jEnd - 1; j >= start; j-- {
 			tmp = append(tmp, matrix[iEnd][j])
 		}
 	}
@@ -57,8 +57,8 @@ func printMatrixInCircle(matrix [][]int, start, rows, columns int) {
 	}
 	tmp = tmp[0:0]
 
-	if iEnd - start >= 2 && jEnd - start >= 1 {
-		for i := iEnd-1; i >= start+1; i-- {
+	if iEnd-start >= 2 && jEnd-start >= 1 {
+		for i := iEnd - 1; i >= start+1; i-- {
 			tmp = append(tmp, matrix[i][start])
 		}
 	}

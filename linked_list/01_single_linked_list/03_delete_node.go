@@ -19,7 +19,7 @@ func DelNode(head **ListNode, node *ListNode) error {
 		node.value = node.next.value
 		node.next = node.next.next
 		return nil
-	} else {//要删除节点是尾节点
+	} else { //要删除节点是尾节点
 		pre := *head
 		for pre.next != nil && pre.next != node {
 			pre = pre.next
@@ -61,7 +61,6 @@ func (n *ListNode) DelNode(node *ListNode) error {
 	}
 }
 
-
 /*
 十八-2
 排序单链表中，删除重复节点
@@ -78,7 +77,7 @@ func DelDupNode(head **ListNode) {
 
 	var (
 		preNode *ListNode
-		node = *head
+		node    = *head
 	)
 	for node != nil {
 		nextNode := node.next
@@ -99,10 +98,10 @@ func DelDupNode(head **ListNode) {
 		}
 
 		//连续区间出现在开头
-		if node == *head {//从头开始连续相等：链表头节点更换
+		if node == *head { //从头开始连续相等：链表头节点更换
 			node = toDelNode
 			*head = toDelNode
-		} else {//不是从头开始连续相等
+		} else { //不是从头开始连续相等
 			if preNode != nil {
 				preNode.next = toDelNode
 				node = toDelNode
@@ -124,7 +123,7 @@ func (n *ListNode) DelDupNode() {
 
 	var (
 		preNode *ListNode
-		node = n
+		node    = n
 	)
 	for node != nil {
 		nextNode := node.next
@@ -142,10 +141,10 @@ func (n *ListNode) DelDupNode() {
 		}
 
 		//连续区间出现在开头
-		if node == n {//从头开始连续相等：链表头节点更换
+		if node == n { //从头开始连续相等：链表头节点更换
 			node = toDelNode
 			n = toDelNode
-		} else {//不是从头开始连续相等
+		} else { //不是从头开始连续相等
 			if preNode != nil {
 				preNode.next = toDelNode
 				node = toDelNode

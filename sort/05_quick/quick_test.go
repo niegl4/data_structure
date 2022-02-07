@@ -27,7 +27,7 @@ func TestQuickSearch(t *testing.T) {
 	//第3大为：4
 	//第4大为：3
 	//第5大为：2
-	resMap := map[int]int {
+	resMap := map[int]int{
 		1: 12,
 		2: 5,
 		3: 4,

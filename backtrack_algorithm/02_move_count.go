@@ -6,7 +6,7 @@ import "errors"
 十三
 m*n的矩阵，从（0，0）开始移动，不能进入横纵坐标的数位之和大于k的坐标。能到达多少个坐标点？
 
- */
+*/
 func moveCount(threshold, rows, columns int) (int, error) {
 	if threshold < 0 || rows <= 0 || columns <= 0 {
 		return 0, errors.New("input invalid")
@@ -34,7 +34,7 @@ func moveCountCore(threshold, rows, columns, row, col int, matrixVisited [][]boo
 
 func check(threshold, rows, columns, row, col int, matrixVisited [][]bool) bool {
 	return row >= 0 && row < rows && col >= 0 && col < columns &&
-		!matrixVisited[row][col] && getDigitSum(row) + getDigitSum(col) <= threshold
+		!matrixVisited[row][col] && getDigitSum(row)+getDigitSum(col) <= threshold
 }
 
 func getDigitSum(number int) int {

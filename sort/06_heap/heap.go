@@ -17,7 +17,7 @@ func HeapSort(arr []int) {
 	}
 
 	//逐次弹出堆顶元素（0号索引），弹出放在队尾，这样最终就是从小到大排列。
-	for i := length-1; i >= 0; i-- {
+	for i := length - 1; i >= 0; i-- {
 		arr[0], arr[i] = arr[i], arr[0]
 		siftDown(arr, 0, i)
 	}
@@ -31,7 +31,7 @@ func siftDown(arr []int, lo, hi int) {
 		if child >= hi {
 			break
 		}
-		if child + 1 < hi && arr[child] < arr[child+1] {
+		if child+1 < hi && arr[child] < arr[child+1] {
 			child++
 		}
 

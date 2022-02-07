@@ -6,7 +6,7 @@ import "data_structure/common"
 三十一
 输入一个入栈序列，一个出栈序列，判断该出栈序列是否是该栈的一个弹出序列。
 已知入栈序列的所有数字都不等。
- */
+*/
 func isPopOrder(push, pop []int) bool {
 	if len(push) == 0 || len(pop) == 0 {
 		return false

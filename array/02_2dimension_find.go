@@ -7,14 +7,14 @@ import "errors"
 二维递增数组，查找一个数字
 
 O(rows+columns)
- */
+*/
 func find(matrix [][]int, number int) (isFind bool, err error) {
 	rows := len(matrix)
 	if rows == 0 {
 		return false, nil
 	}
 	columns := len(matrix[0])
-	for i := 0 ; i < rows; i++ {
+	for i := 0; i < rows; i++ {
 		if len(matrix[i]) != columns {
 			return false, errors.New("matrix invalid")
 		}

@@ -21,7 +21,7 @@ func (s *stackTmp) push(val int) error {
 	if s.queue1 == nil {
 		s.queue1 = common.NewQueue()
 	}
-	s.queue1.In(val)
+	s.queue1.Enqueue(val)
 	return nil
 }
 
@@ -41,21 +41,21 @@ func (s *stackTmp) pop() (int, error) {
 	}
 	if s.queue1.Len() > 0 {
 		for s.queue1.Len() >= 2 {
-			val, err := s.queue1.Out()
+			val, err := s.queue1.Dequeue()
 			if err != nil {
 				return 0, err
 			}
-			s.queue2.In(val)
+			s.queue2.Enqueue(val)
 		}
-		return s.queue1.Out()
+		return s.queue1.Dequeue()
 	} else {
 		for s.queue2.Len() >= 2 {
-			val, err := s.queue2.Out()
+			val, err := s.queue2.Dequeue()
 			if err != nil {
 				return 0, err
 			}
-			s.queue1.In(val)
+			s.queue1.Enqueue(val)
 		}
-		return s.queue2.Out()
+		return s.queue2.Dequeue()
 	}
 }

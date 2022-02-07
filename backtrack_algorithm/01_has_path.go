@@ -7,7 +7,7 @@ import (
 /*
 十二
 判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。
- */
+*/
 
 func hasPath(matrix [][]byte, str string) (bool, error) {
 	rows := len(matrix)

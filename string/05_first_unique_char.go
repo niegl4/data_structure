@@ -6,7 +6,7 @@ import "fmt"
 五十-1
 字符串中第一个只出现一次的字符。
 哈希表中的值表示：该字符出现的次数。
- */
+*/
 func firstUniqueCharV1(str string) string {
 	if str == "" {
 		return ""
@@ -49,7 +49,6 @@ func firstUniqueCharV2(str string) string {
 	}
 	return ""
 }
-
 
 /*
 五十-2

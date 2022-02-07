@@ -3,13 +3,13 @@ package bit_calculate
 /*
 十五-1
 给定一个整数，输出该数的二进制表示中1的个数。
- */
+*/
 
 func numberOf1Version1(n int) int {
 	count := 0
 	flag := 1
 	for flag != 0 {
-		if n & flag != 0 {
+		if n&flag != 0 {
 			count++
 		}
 		flag <<= 1
@@ -32,7 +32,7 @@ func numberOf1Version2(n int) int {
 用1条语句判断一个整数是不是2的自然数次方。
 */
 func judgeNumber(n int) bool {
-	return (n - 1) & n == 0
+	return (n-1)&n == 0
 }
 
 /*

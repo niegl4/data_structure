@@ -3,7 +3,7 @@ package _1_single_linked_list
 /*
 二十五
 合并两个有序链表
- */
+*/
 //空间复杂度O(1)，时间复杂度O(m+n)
 func mergeSortList(l1, l2 *ListNode) *ListNode {
 	if l1 == nil {

@@ -9,7 +9,7 @@ func TestReplaceBlank(t *testing.T) {
 		"我 是 学生 ",
 		" ",
 	}
-	for _, s := range testSet{
+	for _, s := range testSet {
 		t.Log(replaceBlank(s))
 	}
 }

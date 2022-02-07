@@ -11,7 +11,7 @@ import "errors"
 
 跳台阶的问题，是一个类斐波那契数列，它和斐波那契数列不是完全相同。
 小矩形覆盖大矩形的问题，也是一个类斐波那契数列。
- */
+*/
 func fibonacci(n int) (int, error) {
 	if n < 0 {
 		return 0, errors.New("input invalid")
@@ -24,7 +24,7 @@ func fibonacci(n int) (int, error) {
 	var (
 		num1 = 0
 		num2 = 1
-		fiN = 0
+		fiN  = 0
 	)
 
 	for i := 2; i <= n; i++ {
@@ -38,4 +38,3 @@ func fibonacci(n int) (int, error) {
 	}
 	return fiN, nil
 }
-

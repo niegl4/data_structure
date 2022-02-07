@@ -8,7 +8,7 @@ import (
 十七
 输入数字n，按顺序打印从1到最大的n位十进制数。
 题中没有显式提醒"不用考虑大数"，那就暗示这是一个大数问题，用string表示大数。
- */
+*/
 
 func print1ToMaxOfDigits(n int) {
 	if n <= 0 {
@@ -28,12 +28,12 @@ func print1ToMaxOfDigits(n int) {
 func increment(numberStr []byte) bool {
 	var (
 		isOverflow = false
-		takeOver = uint8(0)
-		maxLen = len(numberStr)
+		takeOver   = uint8(0)
+		maxLen     = len(numberStr)
 	)
 	for i := maxLen - 1; i >= 0; i-- {
 		bitSum := numberStr[i] - '0' + takeOver
-		if i == maxLen - 1 {
+		if i == maxLen-1 {
 			bitSum++
 		}
 
@@ -56,7 +56,7 @@ func increment(numberStr []byte) bool {
 func printNumber(numberStr []byte) {
 	maxLen := len(numberStr)
 	for i := 0; i < maxLen; i++ {
-		if i == maxLen - 1 {
+		if i == maxLen-1 {
 			fmt.Println(string(numberStr[maxLen-1]))
 			return
 		} else {
@@ -95,7 +95,7 @@ func print1ToMaxOfDigitsV2Core(numberStr []byte, index int) {
 		return
 	}
 
-	for i := 0; i < 10; i ++ {
+	for i := 0; i < 10; i++ {
 		numberStr[index+1] = 48 + uint8(i)
 		print1ToMaxOfDigitsV2Core(numberStr, index+1)
 	}

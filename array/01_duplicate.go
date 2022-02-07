@@ -7,7 +7,7 @@ import "errors"
 n长数组里所有数字都在0~n-1，可以改变数组排序，找出任一重复数字
 
 每个数字最多交换2次，O(n)
- */
+*/
 func duplicate1(arr []int) (dupNum int, err error) {
 	length := len(arr)
 	if length <= 1 {
@@ -15,7 +15,7 @@ func duplicate1(arr []int) (dupNum int, err error) {
 	}
 
 	for _, num := range arr {
-		if num < 0 || num > length - 1 {
+		if num < 0 || num > length-1 {
 			return 0, errors.New("array invalid")
 		}
 	}
@@ -36,7 +36,7 @@ n+1长数组里所有数字都在1~n，不能改变数组排序，找出任一�
 这里二分查找比较巧妙：数组本身无序，但是数据区间是有序的，即1~n。
 
 二分查找O(logn)，每次查找中都需要遍历数组统计数量O(n)，总共O(nlogn)
- */
+*/
 func duplicate2(arr []int) (dupNum int, err error) {
 	length := len(arr)
 	if length <= 1 {
@@ -61,7 +61,7 @@ func duplicate2(arr []int) (dupNum int, err error) {
 	}
 
 	for low <= high {
-		mid := (high - low) >> 2 + low
+		mid := (high-low)>>2 + low
 		count := calCount(low, mid)
 
 		if low == high {

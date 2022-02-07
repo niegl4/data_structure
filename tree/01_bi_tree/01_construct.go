@@ -6,7 +6,7 @@ import "errors"
 七
 已知二叉树的前序，中序遍历结果，重建二叉树。二叉树中不包含重复数字。
 todo: 已知中序，后续，重建二叉树。
- */
+*/
 func construct(preOrder, inOrder []int) (*BiTree, error) {
 	preLen := len(preOrder)
 	inLen := len(inOrder)
@@ -18,7 +18,7 @@ func construct(preOrder, inOrder []int) (*BiTree, error) {
 
 func constructCore(preOrder []int, preStart, preEnd int, inOrder []int, inStart, inEnd int) (*BiTree, error) {
 	node := &BiTree{
-		Data:   preOrder[preStart],
+		Data: preOrder[preStart],
 	}
 	if preEnd == preStart && inEnd == inStart {
 		if preOrder[preStart] == inOrder[inStart] {
@@ -39,7 +39,7 @@ func constructCore(preOrder []int, preStart, preEnd int, inOrder []int, inStart,
 	if inOrderIndex > inEnd {
 		return nil, errors.New("input invalid")
 	}
-	leftLen := inOrderIndex-inStart
+	leftLen := inOrderIndex - inStart
 	rightLen := inEnd - inOrderIndex
 	if leftLen > 0 {
 		left, err := constructCore(preOrder, preStart+1, preStart+leftLen,

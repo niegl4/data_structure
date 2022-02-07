@@ -8,14 +8,14 @@ import (
 /*
 三十
 定义栈的数据结构。使得它有一个min方法，可以找到栈中的最小值。min，push，pop方法的时间复杂度都是O(1)。
- */
+*/
 
 type stackWithMin struct {
 	dataStack *common.Stack
-	minStack *common.Stack
+	minStack  *common.Stack
 }
 
-func NewStackWithMin() *stackWithMin{
+func NewStackWithMin() *stackWithMin {
 	return &stackWithMin{
 		dataStack: common.NewStack(),
 		minStack:  common.NewStack(),

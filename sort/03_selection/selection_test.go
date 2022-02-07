@@ -20,5 +20,3 @@ func TestSelectionSort(t *testing.T) {
 	}
 	t.Log(mySort.Sli1)
 }
-
-

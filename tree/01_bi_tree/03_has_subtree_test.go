@@ -4,14 +4,14 @@ import "testing"
 
 func TestTree1HasTree2(t *testing.T) {
 	/*
-				8
-			  /  \
-			8	  7
-	       / \
-		  9	  2
-	     / \
-	    4	7
-	 */
+					8
+				  /  \
+				8	  7
+		       / \
+			  9	  2
+		     / \
+		    4	7
+	*/
 	t1Node1 := &BiTree{Data: 8}
 	t1Node2 := &BiTree{Data: 8}
 	t1Node3 := &BiTree{Data: 7}
@@ -30,7 +30,7 @@ func TestTree1HasTree2(t *testing.T) {
 				8
 		       / \
 			  9	  2
-	 */
+	*/
 	t2Node1 := &BiTree{Data: 8}
 	t2Node2 := &BiTree{Data: 9}
 	t2Node3 := &BiTree{Data: 2}

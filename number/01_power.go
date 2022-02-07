@@ -8,7 +8,7 @@ import (
 十六
 实现函数func power(base float64, exponent int) (float64,error)
 不考虑大数问题
- */
+*/
 
 func power(base float64, exponent int) (float64, error) {
 	if base == 0 && exponent < 0 {
@@ -51,7 +51,7 @@ func calPowerV2(base float64, exponent uint64) float64 {
 	result := calPowerV2(base, exponent>>2)
 	result *= result
 
-	if exponent & 0x1 == 1 {
+	if exponent&0x1 == 1 {
 		result *= base
 	}
 	return result

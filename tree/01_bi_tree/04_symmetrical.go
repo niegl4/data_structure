@@ -1,10 +1,9 @@
 package _1_bi_tree
 
-
 /*
 二十八
 判断一颗二叉树是否是对称的。
- */
+*/
 func isSymmetrical(root *BiTree) bool {
 	if root == nil {
 		return false

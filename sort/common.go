@@ -14,7 +14,7 @@ func CheckSlice(sli []int) bool {
 	}
 
 	for i := 0; i < n; i++ {
-		for j := i+1; j < n; j++ {
+		for j := i + 1; j < n; j++ {
 			if sli[i] > sli[j] {
 				return false
 			}

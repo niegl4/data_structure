@@ -78,8 +78,6 @@ func TestBubble3(t *testing.T) {
 
 }
 
-
-
 func BenchmarkBubSort1(b *testing.B) {
 	//默认上限时间是1s
 	//先将b.N设置为1，执行性能测试函数BenchmarkBubSort1。执行时间没超过上限时间，就加大b.N，再执行该函数。直到执行时间大于等于上限时间为止。
@@ -115,4 +113,3 @@ func BenchmarkBubSort3Num20(b *testing.B) {
 		BubSort3([]int{9, 1, 5, 8, 3, 10, 7, 4, 6, 2, 20, 19, 18, 17, 16, 15, 14, 12, 11})
 	}
 }
-

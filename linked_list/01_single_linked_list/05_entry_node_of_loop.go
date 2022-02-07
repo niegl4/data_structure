@@ -7,7 +7,7 @@ package _1_single_linked_list
 1.如果有环，找到相遇的节点
 2.通过相遇节点，计算环中节点的个数
 3.通过个数，找到环的入口节点
- */
+*/
 func meetNode(head *ListNode) *ListNode {
 	if head == nil {
 		return nil

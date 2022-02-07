@@ -19,11 +19,11 @@ func (q *Queue) Len() int {
 	return q.list.Len()
 }
 
-func (q *Queue) In(val int) {
+func (q *Queue) Enqueue(val int) {
 	q.list.PushBack(val)
 }
 
-func (q *Queue) Out() (val int, err error) {
+func (q *Queue) Dequeue() (val int, err error) {
 	if q.list.Len() == 0 {
 		return 0, errors.New("queue is empty")
 	}

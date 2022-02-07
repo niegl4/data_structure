@@ -4,12 +4,12 @@ import "testing"
 
 func TestIsSymmetrical(t *testing.T) {
 	/*
-	         1
-		   /  \
-		  2    2
-	     / \  / \
-		4  5 5  4
-	 */
+		         1
+			   /  \
+			  2    2
+		     / \  / \
+			4  5 5  4
+	*/
 	t1Node1 := &BiTree{Data: 1}
 	t1Node2 := &BiTree{Data: 2}
 	t1Node3 := &BiTree{Data: 2}
@@ -25,12 +25,12 @@ func TestIsSymmetrical(t *testing.T) {
 	t1Node3.rChild = t1Node7
 	t.Log(isSymmetrical(t1Node1))
 	/*
-	         1
-		   /  \
-		  1    1
-	     / \  /
-		1  1 1
-	 */
+		         1
+			   /  \
+			  1    1
+		     / \  /
+			1  1 1
+	*/
 	t2Node1 := &BiTree{Data: 1}
 	t2Node2 := &BiTree{Data: 1}
 	t2Node3 := &BiTree{Data: 1}
