@@ -12,7 +12,7 @@ import (
 单链表从尾到头打印:借助栈实现
 时间复杂度O(n)，空间复杂度O(n)
 */
-func (n *ListNode) PrintReverse() {
+func (n *ListNode) printReverse() {
 	if n == nil {
 		return
 	}

@@ -16,17 +16,17 @@ func TestDelNode(t *testing.T) {
 		headNode := genList(list)
 		switch idx {
 		case 0, 1:
-			err := DelNode(&headNode, headNode)
+			err := delNode(&headNode, headNode)
 			if err != nil {
 				t.Fatal(idx, err)
 			}
 		case 2:
-			err := DelNode(&headNode, headNode.next)
+			err := delNode(&headNode, headNode.next)
 			if err != nil {
 				t.Fatal(idx, err)
 			}
 		case 3:
-			err := DelNode(&headNode, headNode.next)
+			err := delNode(&headNode, headNode.next)
 			if err != nil {
 				t.Fatal(idx, err)
 			}
@@ -46,7 +46,7 @@ func TestDelDupNode(t *testing.T) {
 	}
 	for _, list := range testSet {
 		headNode := genList(list)
-		DelDupNode(&headNode)
+		delDupNode(&headNode)
 		printList(headNode)
 		fmt.Println("-------")
 	}

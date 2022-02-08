@@ -41,7 +41,7 @@ func delBottomKV1(head **ListNode, k int) {
 	if bottomKNode == nil {
 		return
 	}
-	_ = DelNode(head, bottomKNode)
+	_ = delNode(head, bottomKNode)
 	return
 }
 

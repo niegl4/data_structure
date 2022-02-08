@@ -11,7 +11,7 @@ import "errors"
 2.要删除的不是尾节点
 3.要删除的是尾结点
 */
-func DelNode(head **ListNode, node *ListNode) error {
+func delNode(head **ListNode, node *ListNode) error {
 	if head == nil || *head == nil {
 		return errors.New("list is nil")
 	}
@@ -47,7 +47,7 @@ pre,node,next三个指针配合。
 pre：只有node与next不等时，pre才步进。也即，node与next还没判断，pre并不步进。
 另外，还要小心连续相等区间出现在链表头部，此时需要更换头节点。
 */
-func DelDupNode(head **ListNode) {
+func delDupNode(head **ListNode) {
 	if head == nil || *head == nil { //空链表
 		return
 	}
