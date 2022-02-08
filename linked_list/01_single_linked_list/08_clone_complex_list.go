@@ -5,7 +5,7 @@ package _1_single_linked_list
 复制复杂链表。复杂链表中，除了next指向下一节点，还有sibling指针指向任意节点或指向nil。
 
 最容易想到的办法是，先复制主干，再逐个处理sibling指针（从头遍历查找），空间复杂度O(n^2)
-借助散列表，在O(n)的空间复杂度下，时间复杂度被优化为O(n)
+借助散列表，在O(n)的空间复杂度下，时间复杂度被优化为O(n)。（值 与 节点的指针 的映射）
 下面的方法，不使用散列表，时间复杂度为O(n)
 */
 
@@ -42,7 +42,11 @@ func cloneNodes(head *ComplexList) {
 func connectSibling(head *ComplexList) {
 	node := head
 	for node != nil {
-		node.Next.Sibling = node.Sibling
+		if node.Sibling == nil {
+			node.Next.Sibling = nil
+		} else {
+			node.Next.Sibling = node.Sibling.Next
+		}
 		node = node.Next.Next
 	}
 }

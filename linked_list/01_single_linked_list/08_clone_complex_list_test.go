@@ -2,6 +2,15 @@ package _1_single_linked_list
 
 import "testing"
 
+/*
+     ------------->
+    |             |
+ ------->        |
+|   |   |       |
+A - B - C - D - E
+    |       |
+	<-------
+ */
 func TestCloneComplexList(t *testing.T) {
 	head := &ComplexList{
 		Val: "A",

@@ -2,9 +2,10 @@ package _1_single_linked_list
 
 /*
 二十二-1
-获取倒数第k个节点：
+【获取】倒数第k个节点：
 
-先获取正数第N个节点，再快、慢指针一起移动。这种做法很好的平衡了N接近链表尾部/头部的情况。
+先获取正数第N个节点，再快、慢指针一起移动。（这种做法很好的平衡了N接近链表尾部/头部的情况。）
+快慢指针的间距其实是k-1，这样，当快指针指向最后一个节点时，慢指针刚好指向倒数第k个节点。
 */
 func getBottomK(head *ListNode, k int) *ListNode {
 	if head == nil || k == 0 {
@@ -30,11 +31,11 @@ func getBottomK(head *ListNode, k int) *ListNode {
 
 /*
 二十二-2
-删除倒数第k个节点：
+【删除】倒数第k个节点：
 
-先获取正数第N个节点，再快、慢指针一起移动。这种做法很好的平衡了N接近链表尾部/头部的情况。
+v1相当于"获取倒数第k个节点"+"O(1)时间删除节点"的组合。
+缺点是需要多次遍历，而且要实现两个子函数。
 */
-//v1相当于"获取倒数第k个节点"+"O(1)时间删除节点"的组合。缺点是需要多次遍历，而且要实现两个子函数。
 func delBottomKV1(head **ListNode, k int) {
 	bottomKNode := getBottomK(*head, k)
 	if bottomKNode == nil {
@@ -44,7 +45,12 @@ func delBottomKV1(head **ListNode, k int) {
 	return
 }
 
-//v2不用多次遍历链表
+/*
+v2不用多次遍历链表
+
+快指针先指向正数第k个节点，
+快慢指针一起移动，为了方便单链表删除，再新增一个慢指针的前继指针
+ */
 func delBottomKV2(head **ListNode, k int) {
 	if head == nil || *head == nil || k == 0 {
 		return
