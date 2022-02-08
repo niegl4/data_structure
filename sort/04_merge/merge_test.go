@@ -7,7 +7,7 @@ import (
 
 func TestMerge(t *testing.T) {
 	t.Log(mySort.Sli1)
-	MergeSort(mySort.Sli1, 9)
+	MergeSort(mySort.Sli1)
 
 	isSort := mySort.CheckSlice(mySort.Sli1)
 	if !isSort {

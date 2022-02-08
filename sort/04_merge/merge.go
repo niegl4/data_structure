@@ -34,14 +34,14 @@ func merge(arr []int, p, mid, r int) {
 			i++
 		}
 	}
-	//收集剩余元素
-	if i <= mid {
-		for ; i <= mid; i++ {
-			tmp = append(tmp, arr[i])
-		}
-	} else {
+	//收集剩余元素.上方循环退出的条件是：i，j其中一个大于了上限
+	if i > mid {
 		for ; j <= r; j++ {
 			tmp = append(tmp, arr[j])
+		}
+	} else if j > r {
+		for ; i <= mid; i++ {
+			tmp = append(tmp, arr[i])
 		}
 	}
 	//临时数组拷贝进原数组，注意索引偏移
