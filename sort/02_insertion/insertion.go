@@ -13,9 +13,9 @@ func InsertSort(arr []int) {
 			//记录这个最新出现的小元素
 			temp := arr[i+1]
 			//j的作用域要大于内层循环，所以提前声明。
-			var j int
+			j := i
 			//从当前直到第0个，逐个与temp比，比temp大就向后填充。
-			for j = i; j >= 0 && arr[j] > temp; j-- {
+			for ; j >= 0 && arr[j] > temp; j-- {
 				arr[j+1] = arr[j]
 			}
 			//循环退出的时候，无论是j<0，还是最新出现的那个小元素比有序序列大，j+1就是小元素的位置。

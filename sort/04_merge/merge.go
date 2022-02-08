@@ -14,18 +14,18 @@ func mergeSort(arr []int, p, r int) {
 	if p >= r {
 		return
 	}
-	q := (p + r) / 2
-	mergeSort(arr, p, q)
-	mergeSort(arr, q+1, r)
-	merge(arr, p, q, r)
+	mid := (p + r) / 2
+	mergeSort(arr, p, mid)
+	mergeSort(arr, mid+1, r)
+	merge(arr, p, mid, r)
 }
 
-func merge(arr []int, p, q, r int) {
+func merge(arr []int, p, mid, r int) {
 	i := p                       //左区间索引
-	j := q + 1                   //右区间索引
+	j := mid + 1                   //右区间索引
 	tmp := make([]int, 0, r-p+1) //临时数组，就是因为它，导致空间复杂度O(n)
 	//合并两个有序数组
-	for i <= q && j <= r {
+	for i <= mid && j <= r {
 		if arr[i] > arr[j] {
 			tmp = append(tmp, arr[j])
 			j++
@@ -35,8 +35,8 @@ func merge(arr []int, p, q, r int) {
 		}
 	}
 	//收集剩余元素
-	if i <= q {
-		for ; i <= q; i++ {
+	if i <= mid {
+		for ; i <= mid; i++ {
 			tmp = append(tmp, arr[i])
 		}
 	} else {
