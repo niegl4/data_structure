@@ -7,7 +7,7 @@ func InsertSort(arr []int) {
 		return
 	}
 
-	for i := 0; i <= length-2; i++ { //要拿i与i+1比较，所以i只能到倒数第2。倒数第2，就是n-2.
+	for i := 0; i < length-1; i++ { //要拿i与i+1比较，所以i只能到倒数第2。倒数第2，就是n-2.
 		//当前>后一个，再进入循环
 		if arr[i] > arr[i+1] {
 			//记录这个最新出现的小元素
