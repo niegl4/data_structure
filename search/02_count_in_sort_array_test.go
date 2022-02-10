@@ -11,5 +11,5 @@ func TestMissNumInSortArray(t *testing.T) {
 }
 
 func TestNumberEqualIndex(t *testing.T) {
-	t.Log(numberEqualIndex([]int{-3, -1, 1, 3, 5}))
+	t.Log(numberEqualIndex([]int{-3, -1, 1, 3, 4}))
 }

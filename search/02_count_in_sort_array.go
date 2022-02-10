@@ -31,7 +31,7 @@ func missNumInSortArray(arr []int) int {
 	low := 0
 	high := n - 1
 	for low <= high {
-		mid := (high-low)>>2 + low
+		mid := (high-low)>>1 + low
 		if arr[mid] == mid {
 			low = mid + 1
 		} else {
@@ -57,7 +57,7 @@ func numberEqualIndex(arr []int) (int, error) {
 	low := 0
 	high := n - 1
 	for low <= high {
-		mid := (high-low)>>2 + low
+		mid := (high-low)>>1 + low
 		if arr[mid] == mid {
 			return mid, nil
 		} else if arr[mid] < mid {
