@@ -174,9 +174,9 @@ func (bit *BiSTree) GetSuccessor(data float64) *TreeNode {
 	if node == nil {
 		return nil
 	}
-	if node.rChild != nil {
+	if node.rChild != nil { //寻找右子树中的【最左子节点】
 		return getMin(node.rChild)
-	} else {
+	} else { //寻找【node是node.parent的左子节点】这种【相对位置】
 		for {
 			if node == nil || node.parent == nil {
 				return nil
