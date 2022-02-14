@@ -10,4 +10,7 @@ func TestGetLastCommonParent(t *testing.T) {
 
 	node := getLastCommonParent(root, root.lChild.lChild.rChild, root.rChild.rChild.lChild)
 	t.Log(node.Data)
+
+	node = getLastCommonParent(root, root.rChild.lChild, root.rChild.rChild.lChild)
+	t.Log(node.Data)
 }

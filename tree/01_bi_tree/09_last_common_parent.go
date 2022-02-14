@@ -3,13 +3,16 @@ package _1_bi_tree
 /*
 六十八-1
 二叉排序树中，寻找两节点的最近公共父节点。
-todo
+
+问题转化为：在二叉排序树中查找节点
+见二叉搜索树的04_last_common_parent.go
 */
 
 /*
 六十八-2
 树中节点有指向父节点的指针，寻找两节点的最近公共父节点。
 
+问题转化为：求两个单向链表的第一个公共节点
 见单链表的09_first_common_node.go
 */
 
@@ -42,6 +45,7 @@ func getNodePath(root *BiTree, targetNode *BiTree, path *[]*BiTree) bool {
 	return found
 }
 
+//两条“单链表”，寻找分叉节点
 func getLastCommonNode(path1, path2 []*BiTree) *BiTree {
 	length1 := len(path1)
 	length2 := len(path2)
@@ -49,6 +53,7 @@ func getLastCommonNode(path1, path2 []*BiTree) *BiTree {
 	if length2 < length1 {
 		length = length2
 	}
+
 	var node *BiTree
 	for i := 0; i < length; i++ {
 		if path1[i] == path2[i] {

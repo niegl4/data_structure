@@ -2,15 +2,15 @@ package _1_bi_tree
 
 /*
 三十四
-***
+*
 输入一棵二叉树和一个整数，返回二叉树中节点值的和为该整数的所有路径。
 */
 func findPath(root *BiTree, expectNum int) [][]*BiTree {
 	if root == nil {
 		return nil
 	}
-	path := make([]*BiTree, 0) //实际上是一个栈
 	curSum := 0
+	path := make([]*BiTree, 0) //实际上是一个栈
 	res := make([][]*BiTree, 0)
 	findPathCore(root, expectNum, curSum, &path, &res)
 	return res

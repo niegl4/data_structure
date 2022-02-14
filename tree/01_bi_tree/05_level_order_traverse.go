@@ -78,6 +78,7 @@ func (bi *BiTree) levelOrderTraverse2() (res [][]interface{}) {
 	------>
    <--------
 
+*
 两个栈保存接下来的节点。层数从1开始计算，奇数层：左子节点先入栈；偶数层：右子节点先入栈。
 */
 
