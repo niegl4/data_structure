@@ -3,7 +3,7 @@ package _1_bi_tree
 import "testing"
 
 func TestFindPath(t *testing.T) {
-	root, err := construct([]int{10, 5, 4, 7, 12}, []int{4, 5, 7, 10, 12})
+	root, err := constructByPreAndIn([]int{10, 5, 4, 7, 12}, []int{4, 5, 7, 10, 12})
 	if err != nil {
 		t.Fatal(err)
 	}
