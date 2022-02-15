@@ -7,7 +7,7 @@ up，down是核心方法，其余方法基本都是在调用他们。
 
 type MyHeap []int
 
-//对应标准库中Less函数签名，改名为priority更准确些
+//对应标准库中Less函数签名，改名为priority更准确些。当arr[i]应该排在arr[j]之前，函数返回true。
 func (h *MyHeap) priority(i, j int) bool { return (*h)[i] < (*h)[j] }
 
 //Init 对应建堆，从n/2-1 到 0，自上向下堆化
@@ -58,6 +58,7 @@ func (h *MyHeap) up(j int) {
 		i := (j - 1) / 2 //父节点
 		//子节点优先级低于父节点，priority返回false，取反为true，break ==》不再堆化
 		//子节点优先级高于父节点，priority返回true，取反为false ==》继续堆化
+		//【注意】：这里的索引越界判断，当j = 2, 1, 0时，i都等于0，也即i，j最终都会收敛为0，不会越界。
 		if i == j || !h.priority(j, i) {
 			break
 		}
@@ -67,7 +68,7 @@ func (h *MyHeap) up(j int) {
 	}
 }
 
-//自上向下堆化
+//自上向下堆化，n表示索引上限，不能等于该值。只要发生一次堆化，返回true。
 func (h *MyHeap) down(i0, n int) bool {
 	i := i0
 	for {

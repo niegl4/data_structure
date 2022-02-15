@@ -19,6 +19,9 @@ func allOrder(arr []string) (res []string) {
 	return allOrderCore(arr, 0)
 }
 
+//分为两个子问题：idx索引位的确定（它以及它之后的每个元素轮流交换）+ 数组排除idx之后的全排列
+//此处是：for i := idx; i < length; i++ ，idx为形参，每次调用递增idx
+//也可以换成：for i := 0; i < length; i++ ，length为形参，每次调用缩小length
 func allOrderCore(arr []string, idx int) (res []string) {
 	length := len(arr)
 	if idx == length-1 {
@@ -30,6 +33,19 @@ func allOrderCore(arr []string, idx int) (res []string) {
 		arr[idx], arr[i] = arr[i], arr[idx]
 	}
 	return res
+}
+
+func allOrderCoreV2(arr []string, length int) (allOrderSet []string) {
+	if length == 1 {
+		return []string{strings.Join(arr, "|")}
+	}
+
+	for i := 0; i < length; i++ {
+		arr[i], arr[length-1] = arr[length-1], arr[i]
+		allOrderSet = append(allOrderSet, allOrderCoreV2(arr, length-1)...)
+		arr[i], arr[length-1] = arr[length-1], arr[i]
+	}
+	return allOrderSet
 }
 
 /*
