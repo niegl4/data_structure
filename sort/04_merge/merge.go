@@ -45,7 +45,7 @@ func merge(arr []int, p, mid, r int) {
 		}
 	}
 	//临时数组拷贝进原数组，注意索引偏移
-	for k := 0; k <= r-p; k++ {
+	for k := 0; k < r-p+1; k++ {
 		arr[p+k] = tmp[k]
 	}
 }
