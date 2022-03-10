@@ -17,9 +17,9 @@ func quickSort(arr []int, p, r int) {
 	if p >= r {
 		return
 	}
-	q := partition(arr, p, r)
-	quickSort(arr, p, q-1)
-	quickSort(arr, q+1, r)
+	index := partition(arr, p, r)
+	quickSort(arr, p, index-1)
+	quickSort(arr, index+1, r)
 }
 
 //空间复杂度O(1)，关键就在该分区函数中。比pivot小，才与索引i的元素交换。循环跳出时，索引比i小的元素，都比pivot小。
