@@ -40,6 +40,7 @@ func delNode(head **ListNode, node *ListNode) error {
 
 /*
 十八-2
+*
 排序单链表中，删除重复节点
 如 1-2-3-3-4-4-5，删除后：1-2-5
 
@@ -62,7 +63,10 @@ func delDupNode(head **ListNode) {
 	)
 	for node != nil {
 		nextNode := node.next
-		if nextNode == nil { //当前是链表最后一个节点(最后一个元素也是重复元素，for循环条件已经排除这种可能)
+		//当前是链表最后一个节点
+		//倒数第一与倒数第二重复：不会到达此处判断，toDelNode跳出循环就是nil，node也是nil
+		//不重复：可以直接退出
+		if nextNode == nil {
 			break
 		}
 		if node.value != nextNode.value { //node节点与next节点值不等：移动pre，node

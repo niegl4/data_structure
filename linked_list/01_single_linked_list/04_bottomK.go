@@ -12,7 +12,7 @@ func getBottomK(head *ListNode, k int) *ListNode {
 		return nil
 	}
 	fast := head
-	i := 1
+	i := 1 //fast提前步进k-1步
 	for ; i <= k-1 && fast.next != nil; i++ {
 		fast = fast.next
 	}
@@ -50,7 +50,7 @@ v2不用多次遍历链表
 
 快指针先指向正数第k个节点，
 快慢指针一起移动，为了方便单链表删除，再新增一个慢指针的前继指针
- */
+*/
 func delBottomKV2(head **ListNode, k int) {
 	if head == nil || *head == nil || k == 0 {
 		return

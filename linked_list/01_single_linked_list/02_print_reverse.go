@@ -26,3 +26,18 @@ func (n *ListNode) printReverse() {
 		fmt.Println(stack.Pop())
 	}
 }
+
+func (n *ListNode) printReverseV2() {
+	if n == nil {
+		return
+	}
+	stack := make([]interface{}, 0, 8)
+	next := n
+	for next != nil {
+		stack = append(stack, next)
+		next = next.next
+	}
+	for i := len(stack) - 1; i >= 0; i-- {
+		fmt.Println(stack[i])
+	}
+}
