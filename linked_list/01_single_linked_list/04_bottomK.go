@@ -8,7 +8,7 @@ package _1_single_linked_list
 快慢指针的间距其实是k-1，这样，当快指针指向最后一个节点时，慢指针刚好指向倒数第k个节点。
 */
 func getBottomK(head *ListNode, k int) *ListNode {
-	if head == nil || k == 0 {
+	if head == nil || k <= 0 {
 		return nil
 	}
 	fast := head
@@ -52,7 +52,7 @@ v2不用多次遍历链表
 快慢指针一起移动，为了方便单链表删除，再新增一个慢指针的前继指针
 */
 func delBottomKV2(head **ListNode, k int) {
-	if head == nil || *head == nil || k == 0 {
+	if head == nil || *head == nil || k <= 0 {
 		return
 	}
 	fast := *head
@@ -80,4 +80,25 @@ func delBottomKV2(head **ListNode, k int) {
 	}
 	pre.next = slow.next
 	return
+}
+
+/*
+二十二-3
+求链表的中间节点
+如 1-2-3，返回2；1-2-3-4，返回2
+
+元素个数为奇数：返回中间节点
+元素个数为偶数：返回”上中位数“
+*/
+func midNodeOfList(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+	slow := head
+	fast := head.next
+	for fast != nil && fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+	}
+	return slow
 }

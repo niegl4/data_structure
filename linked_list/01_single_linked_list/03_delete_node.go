@@ -40,7 +40,7 @@ func delNode(head **ListNode, node *ListNode) error {
 
 /*
 十八-2
-*
+【*】
 排序单链表中，删除重复节点
 如 1-2-3-3-4-4-5，删除后：1-2-5
 
@@ -95,25 +95,4 @@ func delDupNode(head **ListNode) {
 			}
 		}
 	}
-}
-
-/*
-十八-3
-求链表的中间节点
-如 1-2-3，返回2；1-2-3-4，返回2
-
-元素个数为奇数：返回中间节点
-元素个数为偶数：返回”上中位数“
-*/
-func midNodeOfList(head *ListNode) *ListNode {
-	if head == nil {
-		return nil
-	}
-	slow := head
-	fast := head.next
-	for fast != nil && fast.next != nil {
-		slow = slow.next
-		fast = fast.next.next
-	}
-	return slow
 }

@@ -7,9 +7,9 @@ import (
 
 func TestDelNode(t *testing.T) {
 	testSet := [][]int{
-		{1}, //删除头节点，剩余空链表
-		{1, 2}, //删除头节点，剩余非空链表
-		{1, 1}, //删除尾节点
+		{1},       //删除头节点，剩余空链表
+		{1, 2},    //删除头节点，剩余非空链表
+		{1, 1},    //删除尾节点
 		{1, 2, 2}, //删除中间节点
 	}
 	for idx, list := range testSet {
@@ -38,10 +38,10 @@ func TestDelNode(t *testing.T) {
 
 func TestDelDupNode(t *testing.T) {
 	testSet := [][]int{
-		{1, 2}, //不包含重复元素
-		{1, 1}, //头重复
-		{1, 2, 2}, //尾重复
-		{1, 2, 2, 3}, //中间重复
+		{1, 2},                   //不包含重复元素
+		{1, 1},                   //头重复
+		{1, 2, 2},                //尾重复
+		{1, 2, 2, 3},             //中间重复
 		{1, 1, 2, 3, 3, 4, 5, 5}, //头，中间，尾都有重复
 	}
 	for _, list := range testSet {
@@ -50,11 +50,4 @@ func TestDelDupNode(t *testing.T) {
 		printList(headNode)
 		fmt.Println("-------")
 	}
-}
-
-func TestMidNodeOfList(t *testing.T) {
-	l1 := genList([]int{1, 2, 3})
-	l2 := genList([]int{1, 2, 3, 4})
-	t.Log(midNodeOfList(l1).value)
-	t.Log(midNodeOfList(l2).value)
 }
