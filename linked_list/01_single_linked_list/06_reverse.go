@@ -17,19 +17,19 @@ func reverse(head *ListNode) *ListNode {
 
 	var (
 		pre, next *ListNode
-		node      = head
+		cur       = head
 	)
-	for node.next != nil {
+	for cur.next != nil {
 		//临时保存next
-		next = node.next
+		next = cur.next
 
 		//修改节点指针指向
-		node.next = pre
+		cur.next = pre
 
 		//pre，node步进
-		pre = node
-		node = next
+		pre = cur
+		cur = next
 	}
-	node.next = pre
-	return node
+	cur.next = pre
+	return cur
 }

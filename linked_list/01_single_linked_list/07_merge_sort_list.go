@@ -8,12 +8,12 @@ package _1_single_linked_list
 */
 func mergeSortList(l1, l2 *ListNode) *ListNode {
 	/*
-	l1为nil，  l2为nil
-	l1为nil，  l2不为nil
-	l1不为nil，l2为nil
-	l1不为nil，l2不为nil
-	四种情况，两种判断，就过滤出了l1不为nil，且l2不为nil。很简洁！
-	 */
+		l1为nil，  l2为nil
+		l1为nil，  l2不为nil
+		l1不为nil，l2为nil
+		l1不为nil，l2不为nil
+		四种情况，两种判断，就过滤出了l1不为nil，且l2不为nil。很简洁！
+	*/
 	if l1 == nil {
 		return l2
 	} else if l2 == nil {
@@ -40,16 +40,10 @@ func mergeSortList(l1, l2 *ListNode) *ListNode {
 			pre = pre.next
 		}
 	}
-	if l1 == nil {
-		for l2 != nil && pre != nil {
-			pre.next = l2
-			l2 = l2.next
-		}
-	} else {
-		for l1 != nil && pre != nil {
-			pre.next = l1
-			l1 = l1.next
-		}
+	if l1 != nil {
+		pre.next = l1
+	} else if l2 != nil {
+		pre.next = l2
 	}
 	return newHead
 }
