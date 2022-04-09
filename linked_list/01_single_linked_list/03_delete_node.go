@@ -58,40 +58,40 @@ func delDupNode(head **ListNode) {
 	}
 
 	var (
-		preNode *ListNode
-		node    = *head
+		pre *ListNode
+		cur = *head
 	)
-	for node != nil {
-		nextNode := node.next
+	for cur != nil {
+		next := cur.next
 		//当前是链表最后一个节点
 		//倒数第一与倒数第二重复：不会到达此处判断，toDelNode跳出循环就是nil，node也是nil
 		//不重复：可以直接退出
-		if nextNode == nil {
+		if next == nil {
 			break
 		}
-		if node.value != nextNode.value { //node节点与next节点值不等：移动pre，node
-			preNode = node
-			node = nextNode
+		if cur.value != next.value { //node节点与next节点值不等：移动pre，node
+			pre = cur
+			cur = next
 			continue
 		}
 
 		//连续多个相等
-		val := node.value
-		toDelNode := node
-		for toDelNode != nil && toDelNode.value == val { //循环退出时：toDelNode指向离开连续相等区间的第一个节点
-			toDelNode = toDelNode.next
+		val := cur.value
+		tmp := cur
+		for tmp != nil && tmp.value == val { //循环退出时：tmp指向离开连续相等区间的第一个节点
+			tmp = tmp.next
 		}
 
 		//连续区间出现在开头
-		if node == *head { //从头开始连续相等：链表头节点更换
-			node = toDelNode
-			*head = toDelNode
+		if cur == *head { //从头开始连续相等：链表头节点更换
+			cur = tmp
+			*head = tmp
 		} else { //不是从头开始连续相等
-			if preNode != nil {
-				preNode.next = toDelNode
-				node = toDelNode
+			if pre != nil {
+				pre.next = tmp
+				cur = tmp
 			} else {
-				node = toDelNode
+				cur = tmp
 			}
 		}
 	}
