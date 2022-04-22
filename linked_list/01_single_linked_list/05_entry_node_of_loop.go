@@ -7,7 +7,7 @@ package _1_single_linked_list
 1.如果有环，找到相遇的节点
 2.通过相遇节点，计算环中节点的个数n
 3.通过个数，找到环的入口节点
-	寻找环的入口，n个节点就要先走n步（倒数第k个节点的问题中，最好是先走k-1步）
+	寻找环的入口，n个节点就要先走n步，再同步走，相遇时的节点就是入口节点（不同于"倒数第k个节点的问题"！）
 */
 func meetNode(head *ListNode) *ListNode {
 	if head == nil {
