@@ -4,8 +4,8 @@ package _1_single_linked_list
 三十五
 复制复杂链表。复杂链表中，除了next指向下一节点，还有sibling指针指向任意节点或指向nil。
 
-最容易想到的办法是，先复制主干，再逐个处理sibling指针（从头遍历查找），空间复杂度O(n^2)
-借助散列表，在O(n)的空间复杂度下，时间复杂度被优化为O(n)。（值 与 节点的指针 的映射）
+最容易想到的办法是，先复制主干，再逐个节点处理sibling指针（每个sibling都是从头遍历查找），时间复杂度O(n^2)
+借助散列表，在O(n)的空间复杂度下，时间复杂度被优化为O(n)。（原链表第n个节点的指针 与 复制链表第n个节点的指针 的映射）
 下面的方法，不使用散列表，时间复杂度为O(n)
 */
 
@@ -62,9 +62,8 @@ func reconnectNodes(head *ComplexList) *ComplexList {
 			cloneNode.Next = nil
 			break
 		}
-		cloneNext := next.Next
 		node.Next = next
-		cloneNode.Next = cloneNext
+		cloneNode.Next = next.Next
 
 		node = node.Next
 		cloneNode = cloneNode.Next
