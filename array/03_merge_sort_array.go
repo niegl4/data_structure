@@ -3,6 +3,8 @@ package array
 /*
 五-2
 合并两个排序数组。要求空间复杂度为O(1)
+
+从后向前遍历
 */
 func mergeSort(arr1 *[]int, arr2 []int) {
 	if arr1 == nil {

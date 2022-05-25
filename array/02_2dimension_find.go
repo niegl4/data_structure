@@ -7,6 +7,8 @@ import "errors"
 二维递增数组，查找一个数字
 
 O(rows+columns)
+
+矩阵的右上角数字：一行中的最大，一列中的最小。
 */
 func find(matrix [][]int, number int) (isFind bool, err error) {
 	rows := len(matrix)

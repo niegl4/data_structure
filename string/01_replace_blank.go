@@ -3,6 +3,8 @@ package string
 /*
 五-1
 把字符串中的每个空格替换成%20
+
+从后向前遍历
 */
 func replaceBlank(str string) (newStr string) {
 	if str == "" {
@@ -10,15 +12,15 @@ func replaceBlank(str string) (newStr string) {
 	}
 
 	blankNum := 0
-	oriSli := make([]rune, 0)
 	for _, char := range str {
 		if char == ' ' {
 			blankNum++
 		}
-		oriSli = append(oriSli, char)
 	}
 
+	oriSli := []rune(str)
 	oriIndex := len(oriSli) - 1
+
 	newIndex := oriIndex + 2*blankNum
 	newStrSli := make([]rune, newIndex+1)
 
