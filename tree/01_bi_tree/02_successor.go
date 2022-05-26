@@ -17,6 +17,10 @@ type BiTreeWithP struct {
 	parent *BiTreeWithP
 }
 
+/*
+获取中序遍历的后继节点
+主要有两种情况：该节点的右子节点不为nil，在右子树上找最左节点；该节点的右子节点为nil，寻找节点与父节点的一种相对位置。
+*/
 func getSuccessor(node *BiTreeWithP) *BiTreeWithP {
 	getLeft := func(node *BiTreeWithP) *BiTreeWithP {
 		if node == nil {
@@ -51,16 +55,17 @@ func getSuccessor(node *BiTreeWithP) *BiTreeWithP {
 	return nil
 }
 
-func constructTmp(preOrder, inOrder []int) (*BiTreeWithP, error) {
+func constructBiTreeByPreIn(preOrder, inOrder []int) (*BiTreeWithP, error) {
 	preLen := len(preOrder)
 	inLen := len(inOrder)
 	if preLen == 0 || inLen == 0 || preLen != inLen {
 		return nil, errors.New("input invalid")
 	}
-	return constructCoreTmp(preOrder, 0, preLen-1, inOrder, 0, inLen-1)
+	return constructBiTreeByPreInCore(preOrder, 0, preLen-1, inOrder, 0, inLen-1)
 }
 
-func constructCoreTmp(preOrder []int, preStart, preEnd int, inOrder []int, inStart, inEnd int) (*BiTreeWithP, error) {
+func constructBiTreeByPreInCore(preOrder []int, preStart, preEnd int,
+	inOrder []int, inStart, inEnd int) (*BiTreeWithP, error) {
 	node := &BiTreeWithP{
 		Data: preOrder[preStart],
 	}
@@ -86,7 +91,7 @@ func constructCoreTmp(preOrder []int, preStart, preEnd int, inOrder []int, inSta
 	leftLen := inOrderIndex - inStart
 	rightLen := inEnd - inOrderIndex
 	if leftLen > 0 {
-		left, err := constructCoreTmp(preOrder, preStart+1, preStart+leftLen,
+		left, err := constructBiTreeByPreInCore(preOrder, preStart+1, preStart+leftLen,
 			inOrder, inStart, inOrderIndex-1)
 		if err != nil {
 			return nil, err
@@ -96,7 +101,7 @@ func constructCoreTmp(preOrder []int, preStart, preEnd int, inOrder []int, inSta
 		}
 	}
 	if rightLen > 0 {
-		right, err := constructCoreTmp(preOrder, preStart+leftLen+1, preEnd,
+		right, err := constructBiTreeByPreInCore(preOrder, preStart+leftLen+1, preEnd,
 			inOrder, inOrderIndex+1, inEnd)
 		if err != nil {
 			return nil, err

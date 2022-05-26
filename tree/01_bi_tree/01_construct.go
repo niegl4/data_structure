@@ -3,8 +3,10 @@ package _1_bi_tree
 import "errors"
 
 /*
-七
+七-1
 已知二叉树的前序，中序遍历结果，重建二叉树。二叉树中不包含重复数字。
+
+无论是已知前序中序，还是已知后序中序，都是一个递归问题，而且是一个不断缩小遍历区间的问题。
 */
 func constructByPreAndIn(preOrder, inOrder []int) (*BiTree, error) {
 	preLen := len(preOrder)
@@ -64,7 +66,10 @@ func constructCoreV1(preOrder []int, preStart, preEnd int, inOrder []int, inStar
 	return node, nil
 }
 
-//已知中序，后序，重建二叉树
+/*
+七-2
+已知中序，后序，重建二叉树
+*/
 func constructByPostAndIn(postOrder, inOrder []int) (*BiTree, error) {
 	postLen := len(postOrder)
 	inLen := len(inOrder)

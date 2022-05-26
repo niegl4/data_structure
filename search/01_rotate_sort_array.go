@@ -1,7 +1,8 @@
 package search
 
 /*
-十一-1 *
+十一-1
+*
 递增数组的旋转数组，找到最小值。
 
 二分查找的变种，时间复杂度O(logn)。
@@ -44,6 +45,10 @@ func searchMinInRotateSortArr1(arr []int) (index int) {
 }
 
 //通过索引缩小查找边界，可读性更好
+//start，end的三种大小关系，区分出三种大的情况。
+//小于：全局递增
+//大于：二分讨论，mid与start比较
+//等于：二分讨论，mid与start比较；mid与start相等，会出现遍历查找
 func searchMinInRotateSortArr2(arr []int) (index int) {
 	if len(arr) == 0 {
 		return -1

@@ -5,7 +5,7 @@ import (
 )
 
 func TestGetSuccessor(t *testing.T) {
-	root, err := constructTmp([]int{1, 2, 4, 7, 3, 5, 6, 8}, []int{4, 7, 2, 1, 5, 3, 8, 6})
+	root, err := constructBiTreeByPreIn([]int{1, 2, 4, 7, 3, 5, 6, 8}, []int{4, 7, 2, 1, 5, 3, 8, 6})
 	if err != nil {
 		t.Fatal(err)
 	}
