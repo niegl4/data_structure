@@ -6,6 +6,8 @@ import "errors"
 十三
 m*n的矩阵，从（0，0）开始移动，不能进入横纵坐标的数位之和大于k的坐标。能到达多少个坐标点？
 
+回溯问题，递归代码处理，通常分为主函数，递归核心函数。
+这里，主函数是以起点调用core函数。核心函数是用来计算指定点可以进入的点的个数。
 */
 func moveCount(threshold, rows, columns int) (int, error) {
 	if threshold < 0 || rows <= 0 || columns <= 0 {

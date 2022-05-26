@@ -48,7 +48,7 @@ func calPowerV2(base float64, exponent uint64) float64 {
 		return base
 	}
 
-	result := calPowerV2(base, exponent>>2)
+	result := calPowerV2(base, exponent>>1)
 	result *= result
 
 	if exponent&0x1 == 1 {

@@ -4,7 +4,7 @@ import "testing"
 
 func TestHasPath(t *testing.T) {
 	matrix := [][]byte{
-		{'a', 'b', 't', 'g'},
+		{'b', 'b', 't', 'g'},
 		{'c', 'f', 'c', 's'},
 		{'j', 'd', 'e', 'h'},
 	}

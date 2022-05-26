@@ -10,16 +10,8 @@ func match(str, pattern string) bool {
 	}
 	strLen := len(str)
 	patLen := len(pattern)
-	var (
-		strSli = make([]rune, 0, len(str))
-		patSli = make([]rune, 0, patLen)
-	)
-	for i := 0; i < strLen; i++ {
-		strSli = append(strSli, rune(str[i]))
-	}
-	for i := 0; i < patLen; i++ {
-		patSli = append(patSli, rune(pattern[i]))
-	}
+	strSli := []rune(str)
+	patSli := []rune(pattern)
 	return matchCore(strSli, patSli, 0, strLen-1, 0, patLen-1)
 }
 

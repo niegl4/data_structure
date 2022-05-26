@@ -21,7 +21,7 @@ func maxProductAfterCut(lineLen int) (int, error) {
 	}
 
 	timesOf3 := lineLen / 3
-	if lineLen%timesOf3*3 == 1 {
+	if lineLen%(timesOf3*3) == 1 {
 		timesOf3--
 	}
 

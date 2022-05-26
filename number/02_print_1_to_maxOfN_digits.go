@@ -6,8 +6,11 @@ import (
 
 /*
 十七
+*
 输入数字n，按顺序打印从1到最大的n位十进制数。
 题中没有显式提醒"不用考虑大数"，那就暗示这是一个大数问题，用string表示大数。
+
+"全排列"解法更适合面试写。
 */
 
 func print1ToMaxOfDigits(n int) {
@@ -68,7 +71,6 @@ func printNumber(numberStr []byte) {
 			}
 		}
 	}
-	fmt.Println(string(numberStr[:]))
 	return
 }
 
@@ -84,7 +86,7 @@ func print1ToMaxOfDigitsV2(n int) {
 	}
 
 	for i := 0; i < 10; i++ {
-		numberStr[0] = 48 + uint8(i)
+		numberStr[0] = 48 + uint8(i) //这里的下标0，位于切片的最左端，是大数的最高位。
 		print1ToMaxOfDigitsV2Core(numberStr, 0)
 	}
 }
