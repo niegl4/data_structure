@@ -1,8 +1,32 @@
 package _1_bi_tree
 
 /*
+二十七
+输入一棵二叉树，输出它的镜像。
+
+两棵树互为镜像，与"二十八 一棵树是否对称"不同。
+*/
+func mirrorBiTree(root *BiTree) {
+	if root == nil {
+		return
+	}
+	if root.lChild == nil && root.rChild == nil {
+		return
+	}
+
+	tmp := root.lChild
+	root.lChild = root.rChild
+	root.rChild = tmp
+
+	mirrorBiTree(root.lChild)
+	mirrorBiTree(root.rChild)
+}
+
+/*
 二十八
 判断一颗二叉树是否是对称的。
+*
+递归核心函数，就是两个节点的值进行判等操作。
 */
 func isSymmetrical(root *BiTree) bool {
 	if root == nil {

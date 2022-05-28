@@ -5,6 +5,7 @@ package _1_bi_tree
 判断树2是不是树1的子结构
 *
 result控制剩余递归调用的设计，很巧妙
+它就是一个前序遍历的变形。
 */
 func tree1HasTree2(root1, root2 *BiTree) bool {
 	if root1 == nil || root2 == nil {
@@ -24,6 +25,9 @@ func tree1HasTree2(root1, root2 *BiTree) bool {
 	return result
 }
 
+//递归核心函数，就是用来判断以node1为根节点的树，是否包含有以node2为根节点的树。
+//注意：node1可以是原tree1的任意节点，而不一定是根节点。node2也是这样。
+//这样设计递归核心函数，可以最大限度的复用它，而且保证核心函数简单易懂。
 func tree1HasTree2Core(node1, node2 *BiTree) bool {
 	if node2 == nil {
 		return true

@@ -20,7 +20,7 @@ func mergeSortList(l1, l2 *ListNode) *ListNode {
 		return l1
 	}
 
-	var newHead, pre *ListNode
+	var newHead, cur *ListNode
 	for l1 != nil && l2 != nil {
 		val1 := l1.value.(int)
 		val2 := l2.value.(int)
@@ -32,18 +32,18 @@ func mergeSortList(l1, l2 *ListNode) *ListNode {
 			node = l1
 			l1 = l1.next
 		}
-		if pre == nil {
+		if cur == nil {
 			newHead = node
-			pre = node
+			cur = node
 		} else {
-			pre.next = node
-			pre = pre.next
+			cur.next = node
+			cur = cur.next
 		}
 	}
 	if l1 != nil {
-		pre.next = l1
+		cur.next = l1
 	} else if l2 != nil {
-		pre.next = l2
+		cur.next = l2
 	}
 	return newHead
 }

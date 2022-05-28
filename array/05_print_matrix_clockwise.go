@@ -26,9 +26,11 @@ func printMatrixClockwise(matrix [][]int) {
 }
 
 func printMatrixInCircle(matrix [][]int, start, rows, columns int) {
-	jEnd := columns - 1 - start
-	iEnd := rows - 1 - start
+	jEnd := columns - 1 - start //行结束索引
+	iEnd := rows - 1 - start    //列结束索引
 	var tmp []int
+
+	//总有第一行
 	for j := start; j <= jEnd; j++ {
 		tmp = append(tmp, matrix[start][j])
 	}
@@ -37,6 +39,7 @@ func printMatrixInCircle(matrix [][]int, start, rows, columns int) {
 	}
 	tmp = tmp[0:0]
 
+	//列结束索引大于起始索引，就有第一列
 	if iEnd > start {
 		for i := start + 1; i <= iEnd; i++ {
 			tmp = append(tmp, matrix[i][jEnd])
@@ -47,7 +50,8 @@ func printMatrixInCircle(matrix [][]int, start, rows, columns int) {
 	}
 	tmp = tmp[0:0]
 
-	if jEnd-start >= 1 && iEnd-start >= 1 {
+	//行结束索引大于起始 && 列结束索引大于起始
+	if jEnd > start && iEnd > start {
 		for j := jEnd - 1; j >= start; j-- {
 			tmp = append(tmp, matrix[iEnd][j])
 		}
@@ -57,7 +61,8 @@ func printMatrixInCircle(matrix [][]int, start, rows, columns int) {
 	}
 	tmp = tmp[0:0]
 
-	if iEnd-start >= 2 && jEnd-start >= 1 {
+	//列结束索引比起始大于等于2 && 行结束索引大于起始
+	if iEnd-start >= 2 && jEnd > start {
 		for i := iEnd - 1; i >= start+1; i-- {
 			tmp = append(tmp, matrix[i][start])
 		}
