@@ -7,7 +7,8 @@ import (
 
 /*
 三十八-1
-输出字符数组的全排列。
+输出字符数组的【全排列】。
+**
 
 （number的第十七，也有排列问题。）
 */
@@ -50,7 +51,7 @@ func allOrderCoreV2(arr []string, length int) (allOrderSet []string) {
 
 /*
 三十八-2
-输出字符数组的全组合。
+输出字符数组的【全组合】。
 [a, b, c] => [a, b, c, a|b, a|c, b|c, a|b|c]
 */
 func allCombination(arr []string) (res []string) {
@@ -68,19 +69,21 @@ func allCombination(arr []string) (res []string) {
 //以[a, b, c, d]求长度为2的组合为例，推边界条件。
 func allCombinationCore(arr []string, start, targetLen int) (res []string) {
 	//优化的写法，但是这样，就不没有考虑边界条件了。
-	if targetLen == 1 {
+	if targetLen == 1 { //目标长度为1
 		res = append(res, arr[start:]...)
 		return
 	}
-	if targetLen == len(arr[start:]) {
+	if targetLen == len(arr[start:]) { //目标长度为数组长度
 		return []string{strings.Join(arr[start:], "|")}
 	}
 
+	//第一部分是：包含start的全部组合
 	part1 := allCombinationCore(arr, start+1, targetLen-1)
 	for _, str := range part1 {
 		res = append(res, arr[start]+"|"+str)
 	}
 
+	//第二部分是：不包含start的全部组合
 	res = append(res, allCombinationCore(arr, start+1, targetLen)...)
 	return res
 }

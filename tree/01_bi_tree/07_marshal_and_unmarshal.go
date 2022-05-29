@@ -3,7 +3,7 @@ package _1_bi_tree
 /*
 三十七
 序列化二叉树，反序列化二叉树。
-
+*
 与第七题相比，二叉树中有值相等的节点，这是最大不同。
 */
 func marshalBT(root *BiTree) (res []interface{}) {

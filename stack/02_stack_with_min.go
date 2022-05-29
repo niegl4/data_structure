@@ -8,6 +8,8 @@ import (
 /*
 三十
 定义栈的数据结构。使得它有一个min方法，可以找到栈中的最小值。min，push，pop方法的时间复杂度都是O(1)。
+
+维护一个与数据栈等长度的辅助栈，辅助栈同步push当前min值。
 */
 
 type stackWithMin struct {

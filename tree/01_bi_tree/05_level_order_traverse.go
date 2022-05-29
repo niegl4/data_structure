@@ -90,8 +90,8 @@ func (bi *BiTree) levelOrderTraverse3() (res [][]interface{}) {
 	res = make([][]interface{}, 0)
 	levelResTmp := make([]interface{}, 0)
 
-	oddStack := []*BiTree{bi}
-	evenStack := make([]*BiTree, 0)
+	oddStack := []*BiTree{bi}       //奇数栈
+	evenStack := make([]*BiTree, 0) //偶数栈
 
 	level := 1
 	for len(oddStack) > 0 || len(evenStack) > 0 {

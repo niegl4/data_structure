@@ -12,6 +12,7 @@ func bstConvert(root *TreeNode) (head *TreeNode) {
 	var lastNodeInList *TreeNode
 	bstConvertCore(root, &lastNodeInList)
 
+	//转换完成后，lastNodeInList指向链表的最后一个节点，需要获取链表的头节点
 	for lastNodeInList != nil && lastNodeInList.lChild != nil {
 		lastNodeInList = lastNodeInList.lChild
 	}
@@ -19,6 +20,7 @@ func bstConvert(root *TreeNode) (head *TreeNode) {
 	return head
 }
 
+//递归核心函数，核心任务就是把node与lastNodeInList进行连接，node在右，lastNodeInList在左。
 func bstConvertCore(node *TreeNode, lastNodeInList **TreeNode) {
 	if node == nil {
 		return

@@ -4,8 +4,14 @@ import "data_structure/common"
 
 /*
 三十一
+*
 输入一个入栈序列，一个出栈序列，判断该出栈序列是否是该栈的一个弹出序列。
 已知入栈序列的所有数字都不等。
+
+如果下一个弹出的数字刚好是辅助栈的栈顶数字，直接弹出，接着判断下一个弹出数字。
+如果不是辅助栈的栈顶数字，就把压栈序列中还没入栈的数字压入辅助栈，直到把下一个需要弹出的数字压入辅助栈为止。
+	如果在压栈序列终止前，找到了目标数字，则继续循环这个过程。
+	如果在压栈序列终止前，没找到目标数字，返回false。
 */
 func isPopOrder(push, pop []int) bool {
 	if len(push) == 0 || len(pop) == 0 {
@@ -14,22 +20,22 @@ func isPopOrder(push, pop []int) bool {
 
 	pushIdx := 0
 	pushIdxMax := len(push) - 1
-	stack := common.NewStack()
+	supStack := common.NewStack()
 	for _, popNum := range pop {
-		if stack.Len() == 0 {
-			res, pushIdxNew := isPopNum(push, pushIdx, pushIdxMax, popNum, stack)
+		if supStack.Len() == 0 {
+			res, pushIdxNew := isPopNum(push, pushIdx, pushIdxMax, popNum, supStack)
 			if !res {
 				return false
 			} else {
 				pushIdx = pushIdxNew
 			}
 		} else {
-			stackTopNum, _ := stack.Pop()
+			stackTopNum, _ := supStack.Pop()
 			if stackTopNum == popNum {
 				continue
 			} else {
-				stack.Push(stackTopNum)
-				res, pushIdxNew := isPopNum(push, pushIdx, pushIdxMax, popNum, stack)
+				supStack.Push(stackTopNum)
+				res, pushIdxNew := isPopNum(push, pushIdx, pushIdxMax, popNum, supStack)
 				if !res {
 					return false
 				} else {
@@ -41,17 +47,17 @@ func isPopOrder(push, pop []int) bool {
 	return true
 }
 
-func isPopNum(push []int, pushIdx, pushIdxMax, popNum int, stack *common.Stack) (bool, int) {
+func isPopNum(push []int, pushIdx, pushIdxMax, popNum int, supStack *common.Stack) (bool, int) {
 	if pushIdx > pushIdxMax {
 		return false, 0
 	}
 	for ; pushIdx <= pushIdxMax; pushIdx++ {
-		stack.Push(push[pushIdx])
+		supStack.Push(push[pushIdx])
 		if push[pushIdx] == popNum {
 			break
 		}
 	}
-	stackTopNum, _ := stack.Pop()
+	stackTopNum, _ := supStack.Pop()
 	if stackTopNum != popNum {
 		return false, 0
 	} else {

@@ -28,31 +28,36 @@ func verifySequenceOfBstPostOrderCore(postOrder []int, s, e int) bool {
 
 	pivot := s
 	root := postOrder[e]
-	//下面这段最烧脑
+	//用root的值，确定分区点
 	for i := s; i < e; i++ {
+		//root比起点都小
 		if i == s {
 			if root < postOrder[i] {
-				pivot = -1
+				pivot = s - 1
 				break
 			}
 		}
+		//root比终点都大
 		if i == e-1 {
 			if root > postOrder[i] {
 				pivot = e - 1
 				break
 			}
 		}
+		//root大于左，小于右
 		if root > postOrder[i] && root < postOrder[i+1] {
 			pivot = i
 			break
 		}
 	}
 
+	//从起始 到 pivot，必须都小于root，否则false
 	for i := s; i <= pivot; i++ {
 		if postOrder[i] > root {
 			return false
 		}
 	}
+	//从pivot 到 e-1，必须都大于root，否则false
 	for i := pivot + 1; i < e; i++ {
 		if postOrder[i] < root {
 			return false
@@ -89,11 +94,10 @@ func verifySequenceOfBstPreOrderCore(preOrder []int, s, e int) bool {
 
 	pivot := s
 	root := preOrder[s]
-	//下面这段最烧脑
 	for i := s + 1; i <= e; i++ {
 		if i == s+1 {
 			if root < preOrder[i] {
-				pivot = 0 //【注意：这里从后序的-1，改为了0】
+				pivot = s
 				break
 			}
 		}
