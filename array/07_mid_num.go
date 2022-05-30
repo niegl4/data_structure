@@ -8,6 +8,8 @@ import "errors"
 */
 
 //超过一半的数字，也即中位数
+//快排里的partition函数，可以在(n)时间复杂度内，在无序数组中，查找第K大元素.
+//这里的K就是n>>1
 func midNumByPartition(arr []int) (int, error) {
 	n := len(arr)
 	if n <= 0 {
@@ -27,17 +29,17 @@ func midNumByPartition(arr []int) (int, error) {
 		//注意：i，j不同步。循环结束，i就是arr[up]的位置
 		i := low
 		for j := low; j < up; j++ {
-			if arr[j] > pivot {
+			if arr[j] < pivot { //从小到大排序，这里应该是<
 				arr[i], arr[j] = arr[j], arr[i]
 				i++
 			}
 		}
 		arr[i], arr[up] = arr[up], arr[i]
 
-		if i+1 == midNumIdx { //循环退出的情况
+		if i == midNumIdx { //循环退出的情况
 			resultIdx = i
 			break
-		} else if midNumIdx <= i { //k出现在左半边，减小上限，继续搜索
+		} else if midNumIdx < i { //k出现在左半边，减小上限，继续搜索
 			up = i - 1
 		} else { //k出现在右半边，增大下限，继续搜索
 			low = i + 1

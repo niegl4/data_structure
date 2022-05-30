@@ -75,16 +75,17 @@ func QuickSearch(arr []int, k int) (element int) {
 		//注意：i，j不同步。循环结束，i就是arr[up]的位置
 		i := low
 		for j := low; j <= up-1; j++ {
-			if arr[j] > pivot {
+			if arr[j] < pivot {
 				arr[i], arr[j] = arr[j], arr[i]
 				i++
 			}
 		}
 		arr[i], arr[up] = arr[up], arr[i]
 
-		if i+1 == k { //循环退出的情况
+		//第k大，即索引为k-1。
+		if i == k-1 { //循环退出的情况
 			return arr[i]
-		} else if k <= i { //k出现在左半边，减小上限，继续搜索
+		} else if i > k-1 { //k出现在左半边，减小上限，继续搜索
 			up = i - 1
 		} else { //k出现在右半边，增大下限，继续搜索
 			low = i + 1
