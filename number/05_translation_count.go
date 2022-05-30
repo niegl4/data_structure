@@ -8,8 +8,9 @@ import (
 /*
 四十六
 给定整数，计算翻译的方式有多少种。0翻译为a,25翻译为z。
+*
 
-（先把整数转换成字符串）
+把整数转换成字符串，把字符串转换成[]int32
 */
 
 func translationCount(number int) int {
