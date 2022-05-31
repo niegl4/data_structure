@@ -74,6 +74,7 @@ func firstUniqueInStream(strChain <-chan byte) {
 			charHashTable[b] = idx
 		}
 
+		//通过遍历string，判断当前第一个只出现一次的char。其实最好改成遍历哈希表获取该字符。
 		minIdx := -1
 		var c byte
 		for _, char := range str {

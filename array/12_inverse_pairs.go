@@ -3,6 +3,10 @@ package array
 /*
 五十一
 统计数组中的逆序对。
+
+归并排序的变种。
+1.从后向前merge两个数组。
+2.累积逆序对的数量时，一旦前面的一个元素大于后面的一个元素，那么表示前面的大于后面的一段元素。（count += j - (mid + 1) + 1）
 */
 
 func inversePairs(arr []int) int {
@@ -16,7 +20,7 @@ func inversePairsCore(arr []int, start, end int) int {
 	if start >= end {
 		return 0
 	}
-	mid := (end-start)>>2 + start
+	mid := (end-start)>>1 + start
 	left := inversePairsCore(arr, start, mid)
 	right := inversePairsCore(arr, mid+1, end)
 	count := merge(arr, start, mid, end)
