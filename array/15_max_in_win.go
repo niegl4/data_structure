@@ -5,6 +5,7 @@ import "errors"
 /*
 五十九-1
 数组中，滑动窗口中的最大值。
+todo：是所有滑动窗口的最大值，应该是一个容器。
 ****
 */
 func maxInWindows(arr []int, size int) (int, error) {

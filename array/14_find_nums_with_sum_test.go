@@ -8,4 +8,5 @@ func TestFindNumsWithSum(t *testing.T) {
 
 func TestContinuousSeq(t *testing.T) {
 	t.Log(continuousSeq(15))
+	t.Log(continuousSeq(16))
 }

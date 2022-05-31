@@ -11,6 +11,8 @@ type BiTree struct {
 
 五十五-2
 判断二叉树的平衡性。任意节点的左，右子树的深度差不超过1，即为平衡二叉树。
+
+后续遍历的特点：在遍历该节点前，它的左，右子节点都已经遍历过了。
 */
 func judgeBalance(root *BiTree) bool {
 	if root == nil {

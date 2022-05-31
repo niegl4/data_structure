@@ -3,6 +3,9 @@ package array
 /*
 五十七-1
 递增数组与一个和s。在数组中查找两个数，使得它们的和为s。任意一对满足要求即可。
+*
+
+首尾游标，向中间逼近。
 */
 func findNumsWithSum(arr []int, sum int) (int, int, bool) {
 	if len(arr) < 1 {
@@ -27,6 +30,9 @@ func findNumsWithSum(arr []int, sum int) (int, int, bool) {
 /*
 五十七-2
 和为s的连续正数序列。
+*
+
+仍然是两个索引游标，但不是向中间逼近。注意终止条件：small < sum+1 / 2
 */
 func continuousSeq(sum int) (seqSet [][]int) {
 	if sum < 3 {
