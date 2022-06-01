@@ -2,7 +2,10 @@ package array
 
 /*
 六十六
-给定数组，构造数组，不使用乘法。
+给定数组，构造数组，不使用【除法】。
+
+**
+两个辅助数组的设计很巧妙。
 */
 func multiply(arr []int) []int {
 	length := len(arr)

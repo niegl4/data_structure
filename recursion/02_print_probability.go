@@ -17,6 +17,9 @@ v1是递归实现。
 1.maxVal全局变量，应对多面骰子，可以是6个面，也可以是5面，等等。
 2.巧用数组为map，key为sum，value为出现的次数。而且还有偏移量。
 3.临时变量sum，通过函数形参，层层传递。
+
+*
+递归核心函数：第n个筛子，出现的点数，当前的概率数组。外加一个操作概率数组需要的偏移量。
 */
 func printProbabilityV1(n int) {
 	if n < 1 {
@@ -30,7 +33,7 @@ func printProbabilityV1(n int) {
 
 	probability(n, probabilities)
 
-	total := math.Pow(float64(n), float64(maxVal))
+	total := math.Pow(float64(maxVal), float64(n))
 	for i := n; i <= maxSum; i++ {
 		fmt.Printf("%d, %f\n", i, float64(probabilities[i-n])/total)
 	}
@@ -62,6 +65,8 @@ v2是循环实现。
 1.巧用数组为map，key为sum，value为出现的次数。没有偏移量。
 2.两个数组交替使用。一个数组计算结果，是另一个数组的计算基础，避免了重复计算。
 仍然是临时变量保存计算结果，循环代替递归。
+
+***
 */
 func printProbabilityV2(n int) {
 	if n < 1 {
@@ -98,7 +103,7 @@ func printProbabilityV2(n int) {
 		flag = 1 - flag
 	}
 
-	total := math.Pow(float64(n), float64(maxVal))
+	total := math.Pow(float64(maxVal), float64(n))
 	for i := n; i <= n*maxVal; i++ {
 		fmt.Printf("%d, %f\n", i, float64(probabilities[flag][i])/total)
 	}

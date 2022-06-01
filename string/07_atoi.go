@@ -5,6 +5,10 @@ import "errors"
 /*
 六十七
 string转int。
+
+*
+1.str invalid：1.为空；2.正负号开头，正数的话也可以省略正号；3.str中存在非数字的字符
+2.str是一个大数，对int溢出。可以是正溢出，也可以是负溢出。
 */
 
 func aToi(str string) (int, error) {

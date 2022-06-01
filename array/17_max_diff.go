@@ -3,6 +3,8 @@ package array
 /*
 六十三
 股票的价格按时间顺序存储在数组中。求最大利润。
+
+遍历的过程中，维护min，max临时变量。这个技巧，相当常见。
 */
 
 func maxDiff(arr []int) int {

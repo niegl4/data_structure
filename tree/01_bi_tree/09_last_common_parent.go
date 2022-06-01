@@ -20,6 +20,9 @@ package _1_bi_tree
 六十八-3
 树中节点没有指向父节点的指针，寻找两节点的最近公共父节点。
 ****
+
+解法不仅限于解决二叉树，多叉数也可以。
+递归核心函数最为精彩，某个节点的所有子节点都没找到，需要把该节点从path中剔除！
 */
 func getNodePath(root *BiTree, targetNode *BiTree, path *[]*BiTree) bool {
 	if root == targetNode {
