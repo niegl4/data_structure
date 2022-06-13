@@ -10,12 +10,11 @@ func (bi *BiTree) levelOrderTraverse1() (res []interface{}) {
 	if bi == nil {
 		return
 	}
-	res = make([]interface{}, 0)
 	queue := []*BiTree{bi}
 	for len(queue) > 0 {
 		//[当前]队列长度，在队列中插入数据前计算一次，内层循环入队的元素不影响n
 		n := len(queue)
-		level := make([]interface{}, 0)
+		var level []interface{}
 		//内层循环相当于处理同一层的逻辑
 		for i := 0; i < n; i++ {
 			//1.子节点入队
@@ -45,12 +44,11 @@ func (bi *BiTree) levelOrderTraverse2() (res [][]interface{}) {
 	if bi == nil {
 		return
 	}
-	res = make([][]interface{}, 0)
 	queue := []*BiTree{bi}
 	for len(queue) > 0 {
 		//[当前]队列长度，在队列中插入数据前计算一次，内层循环入队的元素不影响n
 		n := len(queue)
-		level := make([]interface{}, 0)
+		var level []interface{}
 		//内层循环相当于处理同一层的逻辑
 		for i := 0; i < n; i++ {
 			//1.子节点入队
@@ -87,11 +85,10 @@ func (bi *BiTree) levelOrderTraverse3() (res [][]interface{}) {
 	if bi == nil {
 		return
 	}
-	res = make([][]interface{}, 0)
-	levelResTmp := make([]interface{}, 0)
+	var levelRes []interface{}
 
-	oddStack := []*BiTree{bi}       //奇数栈
-	evenStack := make([]*BiTree, 0) //偶数栈
+	oddStack := []*BiTree{bi} //奇数栈，【奇数层】【出】奇数栈，【压】偶数栈
+	var evenStack []*BiTree   //偶数栈，偶数层出偶数栈，压奇数栈
 
 	level := 1
 	for len(oddStack) > 0 || len(evenStack) > 0 {
@@ -100,7 +97,7 @@ func (bi *BiTree) levelOrderTraverse3() (res [][]interface{}) {
 			node := oddStack[len(oddStack)-1]
 			oddStack = oddStack[:len(oddStack)-1]
 
-			levelResTmp = append(levelResTmp, node.Data)
+			levelRes = append(levelRes, node.Data)
 			//子节点入偶数栈,先左
 			if node.lChild != nil {
 				evenStack = append(evenStack, node.lChild)
@@ -110,17 +107,17 @@ func (bi *BiTree) levelOrderTraverse3() (res [][]interface{}) {
 			}
 			//奇数栈为空，层数加1，层结果合并入最终结果
 			if len(oddStack) == 0 {
-				var levelRes []interface{}
-				levelRes = append(levelRes, levelResTmp...)
-				res = append(res, levelRes)
-				levelResTmp = levelResTmp[0:0]
+				tmp := make([]interface{}, len(levelRes))
+				copy(tmp, levelRes)
+				res = append(res, tmp)
+				levelRes = levelRes[0:0]
 				level++
 			}
 		} else {
 			node := evenStack[len(evenStack)-1]
 			evenStack = evenStack[:len(evenStack)-1]
 
-			levelResTmp = append(levelResTmp, node.Data)
+			levelRes = append(levelRes, node.Data)
 			//子节点入奇数栈，先右
 			if node.rChild != nil {
 				oddStack = append(oddStack, node.rChild)
@@ -129,10 +126,10 @@ func (bi *BiTree) levelOrderTraverse3() (res [][]interface{}) {
 				oddStack = append(oddStack, node.lChild)
 			}
 			if len(evenStack) == 0 {
-				var levelRes []interface{}
-				levelRes = append(levelRes, levelResTmp...)
-				res = append(res, levelRes)
-				levelResTmp = levelResTmp[0:0]
+				tmp := make([]interface{}, len(levelRes))
+				copy(tmp, levelRes)
+				res = append(res, tmp)
+				levelRes = levelRes[0:0]
 				level++
 			}
 		}
