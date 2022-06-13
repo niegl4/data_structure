@@ -6,6 +6,7 @@ package _1_bi_tree
 
 两棵树互为镜像，与"二十八 一棵树是否对称"不同。
 */
+//直接修改了原二叉树
 func mirrorBiTree(root *BiTree) {
 	if root == nil {
 		return
@@ -20,6 +21,24 @@ func mirrorBiTree(root *BiTree) {
 
 	mirrorBiTree(root.lChild)
 	mirrorBiTree(root.rChild)
+}
+
+//生成新的二叉树
+func mirrorBiTreeV2(root *BiTree) *BiTree {
+	if root == nil {
+		return nil
+	}
+	return mirrorBiTreeV2Core(root)
+}
+
+func mirrorBiTreeV2Core(node *BiTree) *BiTree {
+	if node == nil {
+		return nil
+	}
+	newNode := &BiTree{Data: node.Data}
+	newNode.lChild = mirrorBiTreeV2Core(node.rChild)
+	newNode.rChild = mirrorBiTreeV2Core(node.lChild)
+	return newNode
 }
 
 /*
