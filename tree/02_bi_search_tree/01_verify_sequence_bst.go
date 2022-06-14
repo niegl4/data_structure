@@ -22,7 +22,7 @@ func verifySequenceOfBstPostOrder(postOrder []int) bool {
 }
 
 func verifySequenceOfBstPostOrderCore(postOrder []int, s, e int) bool {
-	if e <= s {
+	if s >= e {
 		return true
 	}
 
@@ -88,7 +88,7 @@ func verifySequenceOfBstPreOrder(preOrder []int) bool {
 }
 
 func verifySequenceOfBstPreOrderCore(preOrder []int, s, e int) bool {
-	if e <= s {
+	if s >= e {
 		return true
 	}
 

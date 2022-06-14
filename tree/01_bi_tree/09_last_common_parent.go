@@ -49,9 +49,13 @@ func getNodePath(root *BiTree, targetNode *BiTree, path *[]*BiTree) bool {
 }
 
 //两条“单链表”，寻找分叉节点
-func getLastCommonNode(path1, path2 []*BiTree) *BiTree {
+func getLastCommonNode(root *BiTree, path1, path2 []*BiTree) *BiTree {
 	length1 := len(path1)
 	length2 := len(path2)
+	if length1 == 0 || length2 == 0 {
+		return root
+	}
+
 	length := length1
 	if length2 < length1 {
 		length = length2
@@ -72,10 +76,16 @@ func getLastCommonParent(root, node1, node2 *BiTree) *BiTree {
 	}
 
 	path1 := make([]*BiTree, 0)
-	getNodePath(root, node1, &path1)
+	node1InTree := getNodePath(root, node1, &path1)
+	if !node1InTree {
+		return nil
+	}
 
 	path2 := make([]*BiTree, 0)
-	getNodePath(root, node2, &path2)
+	node2InTree := getNodePath(root, node2, &path2)
+	if !node2InTree {
+		return nil
+	}
 
-	return getLastCommonNode(path1, path2)
+	return getLastCommonNode(root, path1, path2)
 }
