@@ -39,7 +39,7 @@ func mergeSort(arr1 *[]int, arr2 []int) {
 		}
 		newIndex--
 	}
-	if index1 > 0 {
+	if index1 > 0 { //其实如果arr1有剩余，可以不用处理。因为是在arr1的基础上生成新arr。
 		for i := index1; i >= 0; i-- {
 			(*arr1)[newIndex] = (*arr1)[i]
 			newIndex--

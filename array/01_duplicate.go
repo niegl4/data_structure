@@ -70,7 +70,7 @@ func duplicate2(arr []int) (dupNum int, err error) {
 	}
 
 	for low <= high {
-		mid := (high-low)>>2 + low
+		mid := (high-low)>>1 + low
 		count := calCount(low, mid)
 
 		if low == high {
@@ -85,7 +85,7 @@ func duplicate2(arr []int) (dupNum int, err error) {
 		if count == numCount {
 			low = mid + 1
 		} else if count > numCount {
-			high = mid //这里边界条件的修改，为啥不是high = mid - 1？
+			high = mid //这里边界条件的修改，为啥不是high = mid - 1？因为[low,mid]区间的统计信息满足需要，重复数字有可能就是mid
 		} else {
 			low = mid + 1
 		}
