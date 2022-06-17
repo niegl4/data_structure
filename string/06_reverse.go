@@ -17,6 +17,9 @@ func reverseSentence(str string) string {
 	end := length - 1
 	reverse(bytes, start, end)
 
+	//只有两大类情况：
+	//1.头字符，不为' '，从i开始翻转
+	//2.头字符，为' '，或者 任意字符，为' '，从i+1开始翻转。
 	for i := 0; i < length; i++ {
 		if i == 0 && bytes[0] != ' ' { //注意这个条件判断
 			j := i + 1

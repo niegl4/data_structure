@@ -14,7 +14,7 @@ func maxDiff(arr []int) int {
 	}
 
 	min := arr[0]
-	maxDiff := arr[1] - min
+	maxDiffVal := arr[1] - min
 
 	for i := 2; i < length; i++ {
 		if arr[i-1] < min {
@@ -22,9 +22,9 @@ func maxDiff(arr []int) int {
 		}
 
 		curDiff := arr[i] - min
-		if curDiff > maxDiff {
-			maxDiff = curDiff
+		if curDiff > maxDiffVal {
+			maxDiffVal = curDiff
 		}
 	}
-	return maxDiff
+	return maxDiffVal
 }
