@@ -8,28 +8,20 @@ package _1_single_linked_list
 */
 
 func reverse(head *ListNode) *ListNode {
-	if head == nil {
-		return nil
-	}
-	if head.next == nil {
+	if head == nil || head.next == nil {
 		return head
 	}
 
 	var (
-		pre, next *ListNode
 		cur       = head
+		pre, next *ListNode
 	)
-	for cur.next != nil {
-		//临时保存next
+	for cur != nil {
 		next = cur.next
 
-		//修改节点指针指向
 		cur.next = pre
-
-		//pre，node步进
 		pre = cur
 		cur = next
 	}
-	cur.next = pre
-	return cur
+	return pre
 }

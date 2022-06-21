@@ -22,14 +22,14 @@ func lastRemainV1(n, m int) int {
 	}
 
 	for ring.Len() > 1 {
-		//m-1次遍历，ring指向要删除的节点
+		//ring指向要删除的节点
 		for i := 0; i < m-1; i++ {
 			ring = ring.Move(1)
 		}
-		//prev() + Unlink(1) 删去目标节点，ring指向
+		//prev() + Unlink(1) 删去目标节点，ring指向被删节点的前一个节点
 		ring = ring.Prev()
-		//fmt.Println(ring.Next())
-		ring.Unlink(1)
+		ring.Unlink(1) //unlink操作，不修改ring的指向
+
 		//next()后，指向新ring的"头"
 		ring = ring.Next()
 	}
