@@ -22,10 +22,14 @@ func twoNumAppearOnce(arr []int) (int, int, error) {
 	}
 
 	bitIndex := findFirstBitIs1FromRight(num)
+	mask := 0b1
+	if bitIndex > 0 {
+		mask <<= bitIndex
+	}
 	num1 := 0
 	num2 := 0
 	for _, item := range arr {
-		if isBit1(item, bitIndex) {
+		if isBit1(item, mask) {
 			num1 ^= item
 		} else {
 			num2 ^= item
@@ -36,16 +40,16 @@ func twoNumAppearOnce(arr []int) (int, int, error) {
 
 func findFirstBitIs1FromRight(num int) int {
 	firstBit := 0
-	for num&0b1 == 0 && firstBit < 64 {
-		num >>= 1
+	mask := 0b1
+	for num&mask == 0 && firstBit < 64 {
+		mask <<= 1
 		firstBit++
 	}
 	return firstBit
 }
 
-func isBit1(num int, bitIndex int) bool {
-	num >>= bitIndex
-	return num&0b1 == 1
+func isBit1(num int, mask int) bool {
+	return num&mask > 0
 }
 
 /*

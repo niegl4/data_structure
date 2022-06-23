@@ -1,66 +1,34 @@
 package array
 
-import "errors"
-
 /*
 五十九-1
 数组中，滑动窗口中的最大值。
-todo：是所有滑动窗口的最大值，应该是一个容器。
 ****
 */
-func maxInWindows(arr []int, size int) (int, error) {
-	length := len(arr)
-	if length == 0 {
-		return 0, errors.New("input invalid")
+func maxSlidingWindow(nums []int, k int) []int {
+	q := []int{}
+	//从队尾逐个比较，直到队列空或者一个元素大于新元素
+	push := func(i int) {
+		for len(q) > 0 && nums[i] >= nums[q[len(q)-1]] {
+			q = q[:len(q)-1]
+		}
+		q = append(q, i)
 	}
 
-	win := make([]int, 0, size)
-	maxInWin := 0
-	for i := 0; i < length; i++ {
-		if len(win) == 0 {
-			win = append(win, i)
-			if maxInWin < arr[i] {
-				maxInWin = arr[i]
-			}
-			continue
-		}
-
-		//滑动窗口移动，过期下标划出
-		if len(win) == size {
-			minIdxInWin := i - size + 1
-			// win[0] < 允许出现的最小下标 <= win[len-1]
-			if minIdxInWin > win[0] && minIdxInWin <= win[len(win)-1] {
-				j := 0
-				for ; j < len(win); j++ {
-					if win[j] == minIdxInWin {
-						break
-					}
-				}
-				win = win[j:]
-			} else if minIdxInWin > win[len(win)-1] { // 允许出现的最小下标 > win[len-1]
-				win = win[0:0]
-				continue
-			}
-		}
-
-		if arr[i] >= arr[win[0]] { // >=窗口中的最大值，直接更新
-			win = []int{i}
-		} else {
-			if arr[i] <= arr[win[len(win)-1]] { // <=窗口中的最小值，直接append
-				win = append(win, i)
-			} else {
-				for idx := range win { // 最小值 < < 最大值，截取
-					if arr[win[idx]] < arr[i] {
-						win = win[0:idx]
-						win = append(win, i)
-					}
-				}
-			}
-		}
-
-		if len(win) > 0 && maxInWin < arr[win[0]] {
-			maxInWin = arr[win[0]]
-		}
+	//起始部分，滑动窗口未满
+	for i := 0; i < k; i++ {
+		push(i)
 	}
-	return maxInWin, nil
+
+	n := len(nums)
+	ans := make([]int, 1, n-k+1)
+	ans[0] = nums[q[0]]
+	for i := k; i < n; i++ {
+		push(i)           //push本身就是在维护递减队列
+		for q[0] <= i-k { //窗口移动，可能把队列头部的元素移出
+			q = q[1:]
+		}
+		ans = append(ans, nums[q[0]])
+	}
+	return ans
 }
