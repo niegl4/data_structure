@@ -12,7 +12,7 @@ import (
 
 最小的k个数 等价于 从小到大排序的topK。
 基于partition函数实现，【会修改原数组】，时间复杂度为O(n)
-基于大顶堆实现，【不修改原数组】，时间复杂度O(nlogn)
+基于大顶堆实现，【不修改原数组】，时间复杂度O(nlogk)
 */
 func topK(arr []int, k int) ([]int, error) {
 	if k < 0 {

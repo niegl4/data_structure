@@ -16,8 +16,8 @@ func getBottomK(head *ListNode, k int) *ListNode {
 	for ; i <= k-1 && fast.next != nil; i++ {
 		fast = fast.next
 	}
-	//检测上方循环退出的原因。满足下面条件，说明list节点数小于k。
-	if fast.next == nil && i < k {
+	//k大于链表长度时，i=链表长度<k；k等于链表长度时，i=k=链表长度；k小于链表长度时，i=k
+	if i < k {
 		return nil
 	}
 
@@ -60,8 +60,7 @@ func delBottomKV2(head **ListNode, k int) {
 	for ; i <= k-1 && fast.next != nil; i++ {
 		fast = fast.next
 	}
-	//检测上方循环退出的原因。满足下面条件，说明list节点数小于k。
-	if fast.next == nil && i < k {
+	if i < k {
 		return
 	}
 
