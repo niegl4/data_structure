@@ -1,6 +1,8 @@
 package string
 
-import "errors"
+import (
+	"errors"
+)
 
 /*
 六十七
